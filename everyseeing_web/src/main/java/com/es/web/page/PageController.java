@@ -9,6 +9,6 @@ public class PageController {
 	@GetMapping(value = {"/"})
 	public String main() {
 		
-		return "/main";
+		return "/layout/layout";
 	}
 }
