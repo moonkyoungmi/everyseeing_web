@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
-	<div>
-		<h1>TEST</h1>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<th:block layout:fragment="content">
+	<div class="container">
+		<p>테스트</p>
 	</div>
-</body>
+</th:block>
+<th:block layout:fragment="script">
+	<script th:src="@{/js/main/main.js}"></script>
+	<script>
+		layout.setCallback(main.init);
+	</script>
+</th:block>
 </html>
