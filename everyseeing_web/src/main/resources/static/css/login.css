@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+body {
+	background-color: #22223B;
+	text-align: -webkit-center;
+}
+
+.wrapper {
+	margin-top: 150px;
+	width: 400px;
+}
+.logo-box {
+	text-align: left;
+}
+
+.logo {
+	width: 300px;
+	margin-bottom: 10px;
+	margin-left: 5px;
+}
+
+h2 {
+	padding-bottom: 15px;
+}
+
+.login-box {
+	background-color: #4A4E69;
+	color: #f2e9e4;
+	width: 400px;
+	height:600px;
+	text-align: -webkit-center;
+	border-radius: 10px;
+}
+
+.login-field {
+	padding-top: 40px;
+}
+
+input {
+	margin-bottom: 15px;
+	padding: 10px;
+	height: 60px;
+}
+
+.form-control {
+	width: 300px;
+	background-color: transparent;
+	border-color: #f2e9e4;
+	color: #f2e9e4;
+}
+
+.form-control:focus {
+	background-color: transparent;
+	border-color: #f2e9e4;
+	color: #f2e9e4;
+	outline: 2px solid #9A8C98;
+}
+
+label {
+	margin-left: 50px;
+}
+
+.btn {
+	background-color: #9A8C98;
+	border-color: #9A8C98;
+	width: 300px;
+	color: #f2e9e4;
+}
+
+.btn:hover {
+	background-color: #8A7D88;
+	border-color: #8A7D88;
+	color: #f2e9e4;
+}
+
+span {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.text-filed {
+	margin-top: 20px;
+}
+
+a {
+	color: #f2e9e4;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #9A8C98;
+}
