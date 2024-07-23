@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/login_layout}">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<head>
 		<th:block th:replace="~{fragments/headerScript :: loginHeaderScriptFragment}"></th:block>
 	</head>
@@ -10,9 +10,7 @@
 				<div class="wrapper">
 					<div class="login-box">
 						<div class="login-field">
-							<div class="text-field">
-								<h2><b>로그인</b></h2>
-							</div>
+							<h2><b>회원가입</b></h2>
 							<div class="form-floating">
 								<input type="text" class="form-control" id="email" placeholder="이메일 (example@gmail.com)">
 								<label for="email">이메일</label>
@@ -25,7 +23,7 @@
 						</div>
 						<div class="text-filed">
 							<span><a href="javascript:;" data-src="login" data-act="clickSignUp">회원가입</a></span>
-							<span><a href="javascript:;" data-src="login" data-act="clickFindPw">비밀번호 찾기</a></span>
+							<span><a href="javascript:;" data-src="login" data-act="clickFindInfo">아이디/비밀번호 찾기</a></span>
 						</div>
 					</div>
 				</div>

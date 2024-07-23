@@ -9,41 +9,30 @@ body {
 	margin-top: 150px;
 	width: 400px;
 }
-.logo-box {
-	text-align: left;
-}
 
 .logo {
 	width: 300px;
-	margin-bottom: 10px;
-	margin-left: 5px;
 }
 
-h2 {
+.text-field {
 	padding-bottom: 15px;
+	text-align: left;
 }
 
 .login-box {
 	background-color: #4A4E69;
 	color: #f2e9e4;
-	width: 400px;
-	height:600px;
 	text-align: -webkit-center;
 	border-radius: 10px;
-}
-
-.login-field {
-	padding-top: 40px;
+	padding: 40px;
 }
 
 input {
 	margin-bottom: 15px;
-	padding: 10px;
 	height: 60px;
 }
 
 .form-control {
-	width: 300px;
 	background-color: transparent;
 	border-color: #f2e9e4;
 	color: #f2e9e4;
@@ -57,13 +46,38 @@ input {
 }
 
 label {
+	margin-left: 10px;
+}
+
+nav {
+	margin-top: 20px;
 	margin-left: 50px;
+	margin-right: 50px;
+}
+
+.nav-btn {
+	margin-left: auto;
+}
+
+.signup-btn {
+	background-color: transparent;
+	color: #f2e9e4;
+	border: 1px solid;
+	border-radius: 5px;
+	border-color: #f2e9e4;
+	width: 100px;
+	height: 35px;
+}
+
+.signup-btn:hover {
+	background-color: #f2e9e4;
+	color: #22223B;
 }
 
 .btn {
 	background-color: #9A8C98;
 	border-color: #9A8C98;
-	width: 300px;
+	width: 100%;
 	color: #f2e9e4;
 }
 
