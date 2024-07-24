@@ -1,4 +1,4 @@
-const login = (function() {
+const signUp = (function() {
 	
 	function init() {
 		_headerBtnChange();
@@ -7,7 +7,7 @@ const login = (function() {
 	
 	// 이벤트 초기화 
 	function _eventInit() {
-		let evo = $("[data-src='login'][data-act]").off();
+		let evo = $("[data-src='signUp'][data-act]").off();
 		evo.on("click", function(e) {
 			_eventAction(e);
 		});
@@ -22,25 +22,25 @@ const login = (function() {
 		let type = e.type;
 		
 		if(type == "click") {
-			if(action == "clickSignUp") {
-				_event.clickSignUp();
+			if(action == "clickLogin") {
+				_event.clickLogin();
 			}
 		};
 	};
 	
 	// 이벤트 실행
 	let _event = {
-		clickSignUp: function() {
-			location.href = "signUp";
+		clickLogin: function() {
+			location.href = "/";
 		}
 	};
 	
 	// 헤더 버튼 수정
 	function _headerBtnChange() {
 		let btn = $("#headerBtn");
-		btn.html("회원가입");
-		btn.attr("data-src", "login");
-		btn.attr("data-act", "clickSignUp");
+		btn.html("로그인");
+		btn.attr("data-src", "signUp");
+		btn.attr("data-act", "clickLogin");
 	};
 	
 	return {
