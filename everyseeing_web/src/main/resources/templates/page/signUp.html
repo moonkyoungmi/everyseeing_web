@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/login_layout}">
+	<head>
+		<th:block th:replace="~{fragments/headerScript :: loginHeaderScriptFragment}"></th:block>
+	</head>
+	<body>
+		<th:block th:replace="~{fragments/header :: loginHeaderFragment}"></th:block>
+		<th:block layout:fragment="content">
+			<div class="container">
+				<div class="signup-wrapper">
+					<div class="login-box">
+						<div class="login-field">
+							<div class="text-field">
+								<h2><b>회원가입</b></h2>
+							</div>
+							<div class="form-floating email-field">
+								<input type="text" class="form-control email-input" id="email" placeholder="이메일 (example@gmail.com)">
+								<label for="email">이메일</label>
+								<button type="button" class="btn auth-btn" data-src="signUp" data-act="clickAuthNumSend">인증번호 발송</button>
+							</div>
+							<div class="form-floating email-field">
+								<input type="text" class="form-control email-input" id="authNum" placeholder="인중번호">
+								<label for="authNum">인증번호</label>
+								<button type="button" class="btn auth-btn" data-src="signUp" data-act="clickAuthNumCheck">확인</button>
+							</div>
+							<div class="form-floating">
+								<input type="password" class="form-control" id="pw" placeholder="비밀번호">
+								<label for="pw">비밀번호</label>
+							</div>
+							<div class="notice-filed">
+								<span class="notice">* 영문, 숫자, 특수문자를 사용하여 8자 이상</span>
+								<span class="pw-notice" id="pwNotice">* 올바른 비밀번호를 입력해 주세요.</span>
+							</div>
+							<div class="form-floating">
+								<input type="password" class="form-control" id="pwChk" placeholder="비밀번호 확인">
+								<label for="pwChk">비밀번호 확인</label>
+							</div>
+							<div class="notice-filed">
+								<span class="pw-notice" id="pwChkNotice">* 비밀번호가 다릅니다.</span>
+							</div>
+							<button type="button" data-src="signUp" data-act="clickSignUp" class="btn ">가입</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</th:block>
+	</body>
+	<th:block layout:fragment="script">
+		<script th:src="@{/js/page/signUp.js}"></script>
+		<script>
+			layout.setCallback(signUp.init);
+		</script>
+	</th:block>
+</html>

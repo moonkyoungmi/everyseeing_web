@@ -9,6 +9,12 @@ public class PageController {
 	@GetMapping(value = {"/"})
 	public String main() {
 		
-		return "main";
+		return "page/login";
+	}
+	
+	@GetMapping("/signUp")
+	public String signUp() {
+		
+		return "page/signUp";
 	}
 }

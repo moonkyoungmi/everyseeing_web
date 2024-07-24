@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/login_layout}">
+	<head>
+		<th:block th:replace="~{fragments/headerScript :: loginHeaderScriptFragment}"></th:block>
+	</head>
+	<body>
+		<th:block th:replace="~{fragments/header :: loginHeaderFragment}"></th:block>
+		<th:block layout:fragment="content">
+			<div class="container">
+				<div class="wrapper">
+					<div class="login-box">
+						<div class="login-field">
+							<div class="text-field">
+								<h2><b>로그인</b></h2>
+							</div>
+							<div class="form-floating">
+								<input type="text" class="form-control" id="email" placeholder="이메일 (example@gmail.com)">
+								<label for="email">이메일</label>
+							</div>
+							<div class="form-floating">
+								<input type="password" class="form-control" id="pw" placeholder="비밀번호">
+								<label for="pw">비밀번호</label>
+							</div>
+							<button type="button" data-src="login" data-act="clickLogin" class="btn">로그인</button>
+						</div>
+						<div class="text-filed">
+							<span><a href="javascript:;" data-src="login" data-act="clickSignUp">회원가입</a></span>
+							<span><a href="javascript:;" data-src="login" data-act="clickFindPw">비밀번호 찾기</a></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</th:block>
+	</body>
+	<th:block layout:fragment="script">
+		<script th:src="@{/js/page/login.js}"></script>
+		<script>
+			layout.setCallback(login.init);
+		</script>
+	</th:block>
+</html>
