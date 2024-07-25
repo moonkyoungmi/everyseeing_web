@@ -24,8 +24,6 @@ public class MemberController {
 	 */
 	@PostMapping("/signUp")
 	public Map<String, Object> signUp(RequestMap reqMap) throws Exception {
-		
-		System.out.println(reqMap);
 		Map<String, Object> param = reqMap.getMap();
 		
 		return memberService.signUp(param);

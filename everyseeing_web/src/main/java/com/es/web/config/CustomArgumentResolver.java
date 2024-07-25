@@ -31,18 +31,15 @@ public class CustomArgumentResolver implements HandlerMethodArgumentResolver {
 		Map<String, Object> bodyMap = new HashMap<String, Object>();
 
 		HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
-		System.out.println("request");
+
 		// 헤더 설정
 		headerMap.put("ip", request.getRemoteAddr());
-		System.out.println("ip");
 		
 		// 파라미터 설정
 		Enumeration<String> parameterNames = request.getParameterNames();
 		while (parameterNames.hasMoreElements()) {
 			String key = parameterNames.nextElement();
 			String[] values = request.getParameterValues(key);
-			System.out.println("param" + key);
-			System.out.println("param" + values[0]);
 
 			if(values != null && key.equals("d")) {
 				Map<String, Object> dataMap = CommonUtil.convertJsonToMap(values[0]);
@@ -59,9 +56,11 @@ public class CustomArgumentResolver implements HandlerMethodArgumentResolver {
 						bodyMap.put(k, dataMap.get(k));
 					}
 				}
+			} else {
+				bodyMap.put(key, values[0]);
 			}
 		}
-		
+
 		return new RequestMap(headerMap, bodyMap);
 	}
 

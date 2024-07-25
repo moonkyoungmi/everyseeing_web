@@ -17,7 +17,7 @@ public class RequestMap {
 	 */
 	public Map<String, Object> getMap() {
 		Map<String, Object> result = new HashMap<>();
-		System.out.println("body: " + body);
+
 		result.putAll(header);
 		result.putAll(body);
 		
