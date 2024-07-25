@@ -24,6 +24,8 @@ const signUp = (function() {
 		if(type == "click") {
 			if(action == "clickLogin") {
 				_event.clickLogin();
+			} else if(action == "clickSignUp") {
+				_event.clickSignUp();
 			}
 		};
 	};
@@ -32,7 +34,25 @@ const signUp = (function() {
 	let _event = {
 		clickLogin: function() {
 			location.href = "/";
-		}
+		},
+		
+		clickSignUp: function() {
+			let url_v = "/member/signUp";
+			
+			let data_v = {
+				email : "cher1605@naver.com",
+				password : "password1234"
+			};
+			
+			$.ajax({
+				type : "POST",
+				url : url_v,
+				data : data_v,
+				success : function() {
+					
+				}
+			});
+		},
 	};
 	
 	// 헤더 버튼 수정

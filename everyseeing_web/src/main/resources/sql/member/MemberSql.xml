@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.es.web.member.MemberMapper">
-
+	
+	<!-- 회원가입 -->
+	<insert id="signUp" parameterType="HashMap" useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO MEMBER (
+			  email
+			, password
+		) VALUES (
+			  #{email}
+			, #{enc_password}
+		)
+	</insert>
+	
+	<!-- 회원 프로필 추가 -->
+	<insert id="addProfile" parameterType="HashMap">
+		INSERT INTO MEMBER_PROFILE (
+			  idx_member
+			, nickname
+			, profile_file
+		) VALUES (
+			  #{idx_member}
+			, #{nickname}
+			, #{profile_file}
+		)
+	</insert>
 </mapper>

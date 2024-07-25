@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.es.web.email.MailData;
 import com.es.web.email.MailService;
 import com.es.web.email.template.JoinAuthTemplate;
+import com.es.web.util.SHAUtil;
 import com.es.web.vo.Code;
 import com.es.web.vo.ResponseMap;
 
@@ -31,7 +32,23 @@ public class MemberService {
 	public Map<String, Object> signUp(Map<String, Object> param) throws Exception {
 		ResponseMap respMap = new ResponseMap();
 		
-		memberMapper.signUp(param);
+		System.out.println(param);
+		
+		// 비밀번호 암호화
+		String password = (String) param.get("password");
+		String encPassword = SHAUtil.encrypt(password);
+		param.put("enc_password", encPassword);
+		
+//		// 회원가입
+//		if(memberMapper.signUp(param) <= 0) {
+//			return respMap.getErrorResponseMap();
+//		}
+//		param.put("idx_member", param.get("idx"));
+//		
+//		// 최초 프로필 1개 등록
+//		if(memberMapper.addProfile(param) <= 0) {
+//			return respMap.getErrorResponseMap();
+//		}
 		
 		return respMap.getResponseMap(Code.TEST);
 	}

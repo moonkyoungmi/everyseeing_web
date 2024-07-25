@@ -8,5 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MemberMapper {
 
 	// 회원가입
-	public Map<String, Object> signUp(Map<String, Object> param);
+	public int signUp(Map<String, Object> param);
+	
+	// 회원 프로필 추가
+	public int addProfile(Map<String, Object> param);
 }

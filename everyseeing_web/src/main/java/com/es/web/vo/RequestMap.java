@@ -12,16 +12,16 @@ public class RequestMap {
 		this.body = body;
 	}
 	
-	
 	/*
 	 * 공통 리퀘스트 객체
 	 */
 	public Map<String, Object> getMap() {
 		Map<String, Object> result = new HashMap<>();
-		
+		System.out.println("body: " + body);
 		result.putAll(header);
 		result.putAll(body);
 		
 		return result;
 	}
+	
 }
