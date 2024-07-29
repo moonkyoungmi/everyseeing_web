@@ -8,6 +8,7 @@ const layout = (function() {
 	
 	function init() {
 		if(_callback != null && typeof(_callback) == "function") {
+			comm.getSecKey();
 			_callback();
 		}
 	}

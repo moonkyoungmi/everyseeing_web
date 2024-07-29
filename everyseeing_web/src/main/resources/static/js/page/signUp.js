@@ -37,11 +37,16 @@ const signUp = (function() {
 		},
 		
 		clickSignUp: function() {
+			// 입력값 유효성 확인
+			let id_v = $("#id").val();
+			let pw_v = $("#pw").val();
+			let pw_chk_v = $("#pwChk").val();
+
 			let url_v = "/member/signUp";
 			
 			let data_v = {
-				email : "cher1605@naver.com",
-				password : "password1234"
+				email : id_v,
+				password : pw_v
 			};
 			
 			$.ajax({
@@ -52,6 +57,11 @@ const signUp = (function() {
 					
 				}
 			});
+		},
+		
+		// 이메일 인증번호 발송
+		clickSendAuthNum: function() {
+			let id_v = $("#id").val();
 		},
 	};
 	

@@ -3,6 +3,9 @@ package com.es.web.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.io.BaseEncoding;
+import java.security.SecureRandom;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CommonUtil {
@@ -24,5 +27,17 @@ public class CommonUtil {
 		}
 		
 		return resultMap;
+	}
+	
+	/**
+	 * AES256 암호화용 시크릿 키 생성
+	 * @return
+	 */
+	public static String makeAESKey() {
+		byte[] key = new byte[32];
+	    new SecureRandom().nextBytes(key);
+	    String encryptionKey = BaseEncoding.base64().encode(key);
+	    
+	    return encryptionKey;
 	}
 }
