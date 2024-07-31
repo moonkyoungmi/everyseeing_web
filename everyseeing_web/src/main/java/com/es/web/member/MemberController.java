@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.es.web.vo.RequestMap;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/api/member")
 public class MemberController {
 
 	@Autowired

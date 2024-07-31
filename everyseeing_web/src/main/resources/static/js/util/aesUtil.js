@@ -1,8 +1,10 @@
 const aes = {
 	// 암호화 함수
 	encodeAES256: function(key, data) {
-	    const cipher = CryptoJS.AES.encrypt(data, CryptoJS.enc.Utf8.parse(key), {
-	        iv: CryptoJS.enc.Utf8.parse(""),
+		let iv = CryptoJS.enc.Hex.parse("0000000000000000");
+
+	    const cipher = CryptoJS.AES.encrypt(data, CryptoJS.enc.Base64.parse(key), {
+	        iv: iv,
 	        padding: CryptoJS.pad.Pkcs7,
 	        mode: CryptoJS.mode.CBC
 	    });

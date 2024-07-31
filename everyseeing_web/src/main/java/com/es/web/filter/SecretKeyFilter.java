@@ -3,6 +3,8 @@ package com.es.web.filter;
 import java.io.IOException;
 import java.util.Optional;
 
+import javax.crypto.SecretKey;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -41,7 +43,7 @@ public class SecretKeyFilter extends OncePerRequestFilter {
 			Optional<Cookie> cookies = CookieUtil.getCookie(request, "secret_key");
 			if(cookies.isPresent()) {
 				if(secretKey == null || secretKey == "" || secretKey.equals(DEFAULT_SECRET_KEY) || !cookies.get().getValue().equals(secretKey)) {
-					secretKey = CommonUtil.makeAESKey();
+					secretKey = CommonUtil.makeSecKey();
 					session.setAttribute("secret_key", secretKey);
 				}
 			} else {

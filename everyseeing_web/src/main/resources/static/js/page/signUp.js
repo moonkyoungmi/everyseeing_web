@@ -43,12 +43,12 @@ const signUp = (function() {
 			let pw_chk_v = $("#pwChk").val();
 
 			let url_v = "/member/signUp";
-			
+		
 			let data_v = {
 				email : id_v,
 				password : pw_v
 			};
-			
+			/*
 			$.ajax({
 				type : "POST",
 				url : url_v,
@@ -56,6 +56,10 @@ const signUp = (function() {
 				success : function() {
 					
 				}
+			});
+			*/
+			comm.send(url_v, data_v, "POST", function() {
+				alert("회원가입이 완료되었습니다.");
 			});
 		},
 		

@@ -11,10 +11,12 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import com.es.web.util.AESUtil;
 import com.es.web.util.CommonUtil;
 import com.es.web.vo.RequestMap;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 public class CustomArgumentResolver implements HandlerMethodArgumentResolver {
 
@@ -42,8 +44,11 @@ public class CustomArgumentResolver implements HandlerMethodArgumentResolver {
 			String[] values = request.getParameterValues(key);
 
 			if(values != null && key.equals("d")) {
-				Map<String, Object> dataMap = CommonUtil.convertJsonToMap(values[0]);
+				// AES256 복호화
+				String jsonStr = AESUtil.decrypt(values[0], CommonUtil.getSecKey(request));
 				
+				System.out.println("===========!!!! " + jsonStr);
+				Map<String, Object> dataMap = CommonUtil.convertJsonToMap(jsonStr);
 				// 특수문자 이스케이프
 				for(String k : dataMap.keySet()) {
 					String escapeValue = "";
