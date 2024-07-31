@@ -11,7 +11,7 @@ const comm = {
 		// 데이터 암호화
 		if(data_v != null) {
 			let json = JSON.stringify(data_v);
-			data_v = "d=" + aes.enc256(this.getSecKey(), json);
+			data_v = "d=" + encodeURIComponent(aes.enc256(this.getSecKey(), json));
 		}
 		
 		$.ajax({

@@ -3,8 +3,6 @@ package com.es.web.filter;
 import java.io.IOException;
 import java.util.Optional;
 
-import javax.crypto.SecretKey;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -17,14 +15,12 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * AES256 암호화를 위한 SecretKey 생성 필터
  * 세션과 쿠키에 저장
  */
 
-@Slf4j
 @Component
 public class SecretKeyFilter extends OncePerRequestFilter {
 
@@ -52,8 +48,6 @@ public class SecretKeyFilter extends OncePerRequestFilter {
 			
 			// 클라이언트에 쿠키 전달
 			CookieUtil.addCookie(request, response, "secret_key", secretKey, 1800, false);
-			
-			log.info("Secret Key ========>" + secretKey);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

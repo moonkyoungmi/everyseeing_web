@@ -4,8 +4,6 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.common.io.BaseEncoding;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 

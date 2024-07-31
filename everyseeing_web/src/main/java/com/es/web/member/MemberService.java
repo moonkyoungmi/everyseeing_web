@@ -45,7 +45,7 @@ public class MemberService {
 		
 		// 최초 프로필 1개 등록
 		param.put("nickname", "기본");
-		System.out.println(param);
+		
 		if(memberMapper.addProfile(param) <= 0) {
 			return respMap.getErrorResponseMap();
 		}

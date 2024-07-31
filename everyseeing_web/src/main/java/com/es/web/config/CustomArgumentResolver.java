@@ -16,7 +16,6 @@ import com.es.web.util.CommonUtil;
 import com.es.web.vo.RequestMap;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 public class CustomArgumentResolver implements HandlerMethodArgumentResolver {
 
@@ -47,7 +46,6 @@ public class CustomArgumentResolver implements HandlerMethodArgumentResolver {
 				// AES256 복호화
 				String jsonStr = AESUtil.decrypt(values[0], CommonUtil.getSecKey(request));
 				
-				System.out.println("===========!!!! " + jsonStr);
 				Map<String, Object> dataMap = CommonUtil.convertJsonToMap(jsonStr);
 				// 특수문자 이스케이프
 				for(String k : dataMap.keySet()) {

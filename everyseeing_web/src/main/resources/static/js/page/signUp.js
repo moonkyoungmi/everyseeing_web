@@ -38,26 +38,17 @@ const signUp = (function() {
 		
 		clickSignUp: function() {
 			// 입력값 유효성 확인
-			let id_v = $("#id").val();
+			let email_v = $("#email").val();
 			let pw_v = $("#pw").val();
 			let pw_chk_v = $("#pwChk").val();
 
 			let url_v = "/member/signUp";
 		
 			let data_v = {
-				email : id_v,
+				email : email_v,
 				password : pw_v
 			};
-			/*
-			$.ajax({
-				type : "POST",
-				url : url_v,
-				data : data_v,
-				success : function() {
-					
-				}
-			});
-			*/
+
 			comm.send(url_v, data_v, "POST", function() {
 				alert("회원가입이 완료되었습니다.");
 			});
@@ -65,7 +56,7 @@ const signUp = (function() {
 		
 		// 이메일 인증번호 발송
 		clickSendAuthNum: function() {
-			let id_v = $("#id").val();
+			let email_v = $("#email").val();
 		},
 	};
 	

@@ -1,10 +1,8 @@
 const aes = {
 	// 암호화 함수
 	encodeAES256: function(key, data) {
-		let iv = CryptoJS.enc.Hex.parse("0000000000000000");
-
 	    const cipher = CryptoJS.AES.encrypt(data, CryptoJS.enc.Base64.parse(key), {
-	        iv: iv,
+	        iv: CryptoJS.enc.Hex.parse("0000000000000000"),
 	        padding: CryptoJS.pad.Pkcs7,
 	        mode: CryptoJS.mode.CBC
 	    });
@@ -14,7 +12,7 @@ const aes = {
 	
 	// 암호화 실행
 	enc256: function(key, data) {
-		key = this.getSecKey();
+		key = comm.getSecKey();
 		
 		return this.encodeAES256(key, data);
 	},
@@ -31,15 +29,8 @@ const aes = {
 	
 	// 복호화 실행
 	dec256: function(key, data) {
-		key = this.getSecKey();
+		key = comm.getSecKey();
 		
 		return this.decodeAES256(key, data);
 	},
-	
-	// 키 가져오기
-	getSecKey: function() {
-		let secret_key = sessionStorage.getItem("secret_key");
-		
-		return secret_key;
-	}
 }
