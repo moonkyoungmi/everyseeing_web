@@ -12,4 +12,10 @@ public interface MemberMapper {
 	
 	// 회원 프로필 추가
 	public int addProfile(Map<String, Object> param);
+	
+	// 이메일 인증번호 저장
+	public int saveAuthNum(Map<String, Object> param);
+
+	// 인증번호 확인
+	public Map<String, Object> getAuthNum(Map<String, Object> param);
 }

@@ -25,4 +25,25 @@
 			, #{profile_file}
 		)
 	</insert>
+	
+	<!-- 이메일 인증번호 저장 -->
+	<insert id="saveAuthNum" parameterType="HashMap">
+		INSERT INTO EMAIL_AUTH (
+			  email
+			, auth_number
+		) VALUES (
+			  #{email}
+			, #{auth_num}
+		)
+	</insert>
+	
+	<!-- 인증번호 확인 -->
+	<select id="getAuthNum" parameterType="HashMap">
+		SELECT
+			auth_number
+		FROM
+			EMAIL_AUTH
+		WHERE
+			email = #{email}
+	</select>
 </mapper>

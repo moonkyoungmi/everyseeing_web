@@ -42,4 +42,16 @@ public class MemberController {
 		return memberService.sendMail(param);
 	}
 	
+	/**
+	 * 이메일 인증번호 확인
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/check/auth")
+	public Map<String, Object> checkAuthNum(RequestMap reqMap) throws Exception {
+		Map<String, Object> param = reqMap.getMap();
+		
+		return memberService.checkAuthNum(param);
+	}
 }
