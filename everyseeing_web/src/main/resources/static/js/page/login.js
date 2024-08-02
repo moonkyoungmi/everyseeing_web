@@ -24,6 +24,8 @@ const login = (function() {
 		if(type == "click") {
 			if(action == "clickSignUp") {
 				_event.clickSignUp();
+			} else if(action == "clickLogin") {
+				_event.clickLogin();
 			}
 		};
 	};
@@ -32,7 +34,38 @@ const login = (function() {
 	let _event = {
 		clickSignUp: function() {
 			location.href = "signUp";
-		}
+		},
+		
+		clickLogin: function() {
+			let email_v = $("#email").val();
+			let password_v = $("#pw").val();
+			
+			if(comm.isNull(email_v) || comm.isNull(password_v)) {
+				modal.alert({
+					content: "입력되지 않은 값이 있습니다."
+				});
+				return;
+			}
+			
+			let url_v = "/login";
+			
+			let data_v = {
+				email: email_v,
+				password: password_v
+			}
+			
+			comm.send(url_v, data_v, "POST", function(resp) {
+				let code = resp.body.code;
+				
+				if(code == 1002 || code == 1003) {
+					modal.alert({
+						content: "아이디 혹은 비밀번호 오류입니다."
+					});
+				} else {
+					
+				}
+			});
+		},
 	};
 	
 	// 헤더 버튼 수정

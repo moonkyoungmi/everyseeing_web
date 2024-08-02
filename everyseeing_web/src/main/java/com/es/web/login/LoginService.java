@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.es.web.util.CommonUtil;
+import com.es.web.util.SHAUtil;
 import com.es.web.vo.Code;
 import com.es.web.vo.ResponseMap;
 
@@ -25,17 +27,40 @@ public class LoginService {
 	public Map<String, Object> login(Map<String, Object> param) throws Exception {
 		ResponseMap respMap = new ResponseMap();
 		
-		/**
-		 * 1. 이메일, 비밀번호 입력
-		 * 2. 이메일로 회원 유무 확인
-		 * 3. 회원이 있을 경우 입력한 비밀번호를 암호화 하여 DB 비밀번호와 비교
-		 * 4. 비밀번호가 맞을 경우 로그인 기록 Y 추가, 틀릴 경우 N 추가
-		 * 5. 로그인 성공 후 JWT 토큰 발급
-		 */
-		
 		Map<String, Object> memberInfo = loginMapper.getMemberInfo(param);
+		if(CommonUtil.checkIsNull(memberInfo)) {
+			// 회원 미존재
+			return respMap.getResponseMap(Code.MEMBER_NOT_EXIST);
+		}
 		
+		String idxMember = String.valueOf(memberInfo.get("idx_member"));
+		param.put("idx_member", idxMember);
+
+		String savesPassword = (String) memberInfo.get("password");
+		String encPassword = SHAUtil.encrypt(String.valueOf(param.get("password")));
+		if(!savesPassword.equals(encPassword)) {
+			// 비밀번호 불일치
+			param.put("login_yn", "N");
+			addLoginHistory(param);
+			return respMap.getResponseMap(Code.MEMBER_LOGIN_FAIL);
+		} else {
+			// 비밀번호 일치
+			param.put("login_yn", "Y");
+			addLoginHistory(param);
+			
+			// JWT 토큰 발급
+		}
+
 		return respMap.getResponseMap();
+	}
+	
+	/**
+	 * 로그인 기록 추가
+	 * @param param
+	 * @throws Exception
+	 */
+	private void addLoginHistory(Map<String, Object> param) throws Exception {
+		loginMapper.addLoginHistory(param);
 	}
 	
 	/**

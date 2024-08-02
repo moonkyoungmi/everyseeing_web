@@ -89,4 +89,30 @@ public class CommonUtil {
 		}
 	}
 	
+	/**
+	 * Map null 체크
+	 * @param param
+	 * @return
+	 */
+	public static boolean checkIsNull(Map<String, Object> param) {
+		if(param == null || param.isEmpty()) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * 파라미터 null 체크
+	 * @param param
+	 * @param key
+	 * @return
+	 */
+	public static boolean checkIsNull(Map<String, Object> param, String key) {
+		if(param == null || key == null || (param.get(key) == null) || param.get(key).equals("")) {
+			return true;
+		}
+
+		return false;
+	}
 }

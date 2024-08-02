@@ -42,7 +42,7 @@ public class MemberService {
 		Map<String, Object> data = memberMapper.emailAuthCheck(param);
 		if(data != null) {
 			String auth_yn = (String) data.get("check_yn");
-			if(auth_yn != "Y") {
+			if(!auth_yn.equals("Y")) {
 				return respMap.getResponseMap(Code.MEMBER_EMAIL_AUTH_FAIL);
 			}
 		} else {
