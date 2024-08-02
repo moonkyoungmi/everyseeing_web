@@ -46,4 +46,36 @@
 		WHERE
 			email = #{email}
 	</select>
+	
+	<!-- 인증번호 체크 업데이트 -->
+	<update id="modifyAuthNumCheck" parameterType="HashMap">
+		UPDATE EMAIL_AUTH
+		SET check_yn = 'Y'
+		WHERE
+			email = #{email}
+		AND
+			auth_number = #{auth_num}
+	</update>
+	
+	<!-- 이메일 인증 확인 -->
+	<select id="emailAuthCheck" parameterType="HashMap">
+		SELECT
+			check_yn
+		FROM
+			EMAIL_AUTH
+		WHERE
+			email = #{email}
+		AND
+			auth_number = #{auth_num}
+	</select>
+	
+	<!-- 이메일 중복 확인 -->
+	<select id="duplicateEmailCheck" parameterType="HashMap">
+		SELECT
+			COUNT(*)
+		FROM
+			MEMBER
+		WHERE
+			email = #{email}
+	</select>
 </mapper>

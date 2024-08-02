@@ -18,4 +18,14 @@ public interface MemberMapper {
 
 	// 인증번호 확인
 	public Map<String, Object> getAuthNum(Map<String, Object> param);
+	
+	// 인증번호 확인 업데이트
+	public int modifyAuthNumCheck(Map<String, Object> param);
+	
+	// 이메일 인증 유무 확인
+	public Map<String, Object> emailAuthCheck(Map<String, Object> param);
+	
+	// 이메일 중복 확인
+	public int duplicateEmailCheck(Map<String, Object> param);
+	
 }

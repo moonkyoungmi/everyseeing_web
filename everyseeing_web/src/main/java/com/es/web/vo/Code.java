@@ -8,7 +8,9 @@ public enum Code {
 	OK(200, "success"),
 	ERROR(500, "fail"),
 	
-	TEST(1000, "test"),
+	// MEMBER
+	MEMBER_DUPLE_EMAIL(1000, "duplicate email"),
+	MEMBER_EMAIL_AUTH_FAIL(1001, "email auth fail"),
 	;
 	
 	public final int code;

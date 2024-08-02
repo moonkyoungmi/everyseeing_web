@@ -37,4 +37,13 @@ const comm = {
 		
 		return key;
 	},
+	
+	// null 체크
+	isNull: function(data) {
+		if(data == null || data == "") {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

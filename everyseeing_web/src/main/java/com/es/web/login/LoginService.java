@@ -35,7 +35,7 @@ public class LoginService {
 		
 		Map<String, Object> memberInfo = loginMapper.getMemberInfo(param);
 		
-		return respMap.getResponseMap(Code.TEST);
+		return respMap.getResponseMap();
 	}
 	
 	/**
@@ -47,6 +47,6 @@ public class LoginService {
 	public Map<String, Object> logout(Map<String, Object> param) throws Exception {
 		ResponseMap respMap = new ResponseMap();
 		
-		return respMap.getResponseMap(Code.OK);
+		return respMap.getResponseMap();
 	}
 }

@@ -11,6 +11,7 @@ import com.es.web.email.MailService;
 import com.es.web.email.template.JoinAuthTemplate;
 import com.es.web.util.CommonUtil;
 import com.es.web.util.SHAUtil;
+import com.es.web.vo.Code;
 import com.es.web.vo.ResponseMap;
 
 @Service
@@ -32,6 +33,22 @@ public class MemberService {
 	public Map<String, Object> signUp(Map<String, Object> param) throws Exception {
 		ResponseMap respMap = new ResponseMap();
 		
+		// 이메일 중복 확인
+		if(memberMapper.duplicateEmailCheck(param) > 0) {
+			return respMap.getResponseMap(Code.MEMBER_DUPLE_EMAIL);
+		}
+		
+		// 이메일 인증 여부 확인
+		Map<String, Object> data = memberMapper.emailAuthCheck(param);
+		if(data != null) {
+			String auth_yn = (String) data.get("check_yn");
+			if(auth_yn != "Y") {
+				return respMap.getResponseMap(Code.MEMBER_EMAIL_AUTH_FAIL);
+			}
+		} else {
+			return respMap.getResponseMap(Code.MEMBER_EMAIL_AUTH_FAIL);
+		}
+		
 		// 비밀번호 암호화
 		String password = (String) param.get("password");
 		String encPassword = SHAUtil.encrypt(password);
@@ -47,7 +64,7 @@ public class MemberService {
 		param.put("nickname", "기본");
 		
 		if(memberMapper.addProfile(param) <= 0) {
-			return respMap.getErrorResponseMap();
+			return respMap.getResponseMap();
 		}
 		
 		return respMap.getResponseMap();
@@ -61,6 +78,11 @@ public class MemberService {
 	 */
 	public Map<String, Object> sendMail(Map<String, Object> param) throws Exception {
 		ResponseMap respMap = new ResponseMap();
+		
+		// 이메일 중복 확인
+		if(memberMapper.duplicateEmailCheck(param) > 0) {
+			return respMap.getResponseMap(Code.MEMBER_DUPLE_EMAIL);
+		}
 		
 		String authNum = CommonUtil.makeRandStr(10);
 		param.put("auth_num", authNum);
@@ -94,10 +116,12 @@ public class MemberService {
 		String authNum = (String) param.get("auth_num");
 		
 		if(!savedAuthNum.equals(authNum)) {
-			return respMap.getErrorResponseMap();
+			return respMap.getResponseMap(Code.MEMBER_EMAIL_AUTH_FAIL);
 		}
 		
 		respMap.setBody("data", data);
+
+		memberMapper.modifyAuthNumCheck(param);
 		
 		return respMap.getResponseMap();
 	}

@@ -24,6 +24,6 @@ public class TestService {
 		
 		respMap.setBody("result", result);
 		
-		return respMap.getResponseMap(Code.TEST);
+		return respMap.getResponseMap();
 	}
 }
