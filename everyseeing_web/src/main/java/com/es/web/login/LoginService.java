@@ -1,5 +1,6 @@
 package com.es.web.login;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,10 @@ public class LoginService {
 			addLoginHistory(param);
 			
 			// JWT 토큰 발급
+			Map<String, Object> claims = new HashMap<>();
+			claims.put("login_ip", param.get("ip"));
+			claims.put("login_idx", memberInfo.get("idx_member"));
+			
 		}
 
 		return respMap.getResponseMap();

@@ -56,6 +56,10 @@ dependencies {
 
 	// google base encoding
 	implementation("com.google.guava:guava:33.2.1-jre")
+	
+	// jwt
+	compileOnly 'io.jsonwebtoken:jjwt-api:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6', 'io.jsonwebtoken:jjwt-jackson:0.12.6'
 }
 
 tasks.named('test') {
