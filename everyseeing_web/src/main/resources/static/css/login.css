@@ -151,3 +151,42 @@ span {
 .notice-filed + .btn {
 	margin-top: 15px;
 }
+
+.profile-wrapper {
+	margin-top: 150px;
+	width: 1600px;
+	text-align: center;
+}
+
+.profile-box {
+	color: #f2e9e4;
+	width: 1200px;
+}
+
+.img-box {
+	margin-top: 80px;
+}
+
+.profile-img {
+	margin-left: 50px;
+	margin-right: 50px;
+	border-radius: 50px;
+}
+
+.profile-img:hover {
+	cursor: pointer;
+	box-shadow: 0 0 0 10px #9A8C98;	
+}
+
+.profile-add {
+	margin-top: 100px;
+}
+
+.profile-add-btn {
+	background-color: transparent;
+	border: 2px solid #9A8C98;
+	border-radius: 10px;
+	width: 150px;
+	height: 60px;
+	color: #f2e9e4;
+}

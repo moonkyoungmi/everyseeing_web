@@ -24,4 +24,10 @@ public class PageController {
 		return "page/signUp";
 	}
 	
+	@GetMapping("/profile")
+	public String profile() {
+		
+		return "page/profile";
+	}
+	
 }

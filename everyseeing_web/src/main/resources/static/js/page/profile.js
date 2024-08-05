@@ -1,4 +1,4 @@
-const login = (function() {
+const profile = (function() {
 	
 	function init() {
 		_headerBtnChange();
@@ -76,10 +76,8 @@ const login = (function() {
 	
 	// 헤더 버튼 수정
 	function _headerBtnChange() {
-		let btn = $("#headerBtn");
-		btn.html("회원가입");
-		btn.attr("data-src", "login");
-		btn.attr("data-act", "clickSignUp");
+		let btn = $(".nav-btn");
+		btn.remove();
 	};
 	
 	return {
