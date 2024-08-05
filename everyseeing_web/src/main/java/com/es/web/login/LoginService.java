@@ -87,19 +87,4 @@ public class LoginService {
 		loginMapper.addLoginHistory(param);
 	}
 	
-	/**
-	 * 로그아웃
-	 * @param param
-	 * @return
-	 * @throws Exception
-	 */
-	@Deprecated
-	public Map<String, Object> logout(Map<String, Object> param, HttpServletRequest request) throws Exception {
-		ResponseMap respMap = new ResponseMap();
-		
-		HttpSession session = request.getSession();
-		session.removeAttribute(TOKEN_NAME);
-		
-		return respMap.getResponseMap();
-	}
 }
