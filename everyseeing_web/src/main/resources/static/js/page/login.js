@@ -62,7 +62,7 @@ const login = (function() {
 						content: "아이디 혹은 비밀번호 오류입니다."
 					});
 				} else {
-					
+					location.href = "/";
 				}
 			});
 		},
