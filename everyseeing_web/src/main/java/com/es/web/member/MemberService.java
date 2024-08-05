@@ -1,5 +1,6 @@
 package com.es.web.member;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,6 +123,50 @@ public class MemberService {
 		respMap.setBody("data", data);
 
 		memberMapper.modifyAuthNumCheck(param);
+		
+		return respMap.getResponseMap();
+	}
+	
+	/**
+	 * 계정에 따른 프로필 리스트
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> getProfileList(Map<String, Object> param) throws Exception {
+		ResponseMap respMap = new ResponseMap();
+		
+		List<Map<String, Object>> list = memberMapper.getProfileList(param);
+
+		respMap.setBody("list", list);
+		
+		return respMap.getResponseMap();
+	}
+	
+	/**
+	 * 프로필 추가
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> addProfile(Map<String, Object> param) throws Exception {
+		ResponseMap respMap = new ResponseMap();
+		
+		memberMapper.addProfile(param);
+		
+		return respMap.getResponseMap();
+	}
+	
+	/**
+	 * 프로필 수정
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> modifyProfile(Map<String, Object> param) throws Exception {
+		ResponseMap respMap = new ResponseMap();
+		
+		memberMapper.modifyProfile(param);
 		
 		return respMap.getResponseMap();
 	}

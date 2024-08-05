@@ -54,4 +54,43 @@ public class MemberController {
 		
 		return memberService.checkAuthNum(param);
 	}
+	
+	/**
+	 * 계정에 따른 프로필 리스트
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/profile/list")
+	public Map<String, Object> getProfileList(RequestMap reqMap) throws Exception {
+		Map<String, Object> param = reqMap.getMap();
+		
+		return memberService.getProfileList(param);
+	}
+	
+	/**
+	 * 프로필 추가
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/profile/add")
+	public Map<String, Object> addProfile(RequestMap reqMap) throws Exception {
+		Map<String, Object> param = reqMap.getMap();
+		
+		return memberService.addProfile(param);
+	}
+
+	/**
+	 * 프로필 수정
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/profile/modify")
+	public Map<String, Object> modifyProfile(RequestMap reqMap) throws Exception {
+		Map<String, Object> param = reqMap.getMap();
+		
+		return memberService.modifyProfile(param);
+	}
 }

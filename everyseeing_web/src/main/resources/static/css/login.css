@@ -154,13 +154,12 @@ span {
 
 .profile-wrapper {
 	margin-top: 150px;
-	width: 1600px;
+	width: 100%;
 	text-align: center;
 }
 
 .profile-box {
 	color: #f2e9e4;
-	width: 1200px;
 }
 
 .img-box {
@@ -168,6 +167,8 @@ span {
 }
 
 .profile-img {
+	width:160px;
+	height:160px;
 	margin-left: 50px;
 	margin-right: 50px;
 	border-radius: 50px;
@@ -189,4 +190,17 @@ span {
 	width: 150px;
 	height: 60px;
 	color: #f2e9e4;
+}
+
+.btn-cancel {
+	width: 60px;
+}
+
+.btn-save {
+	width: 60px;
+	background-color: #22223B;
+}
+
+.btn-save:hover {
+	background-color: #19192D;
 }

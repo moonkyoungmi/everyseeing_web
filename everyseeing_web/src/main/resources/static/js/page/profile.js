@@ -2,13 +2,14 @@ const profile = (function() {
 	
 	function init() {
 		_headerBtnChange();
+		_profileSetting();
 		_eventInit();
 	};
 	
 	// 이벤트 초기화 
 	function _eventInit() {
-		let evo = $("[data-src='login'][data-act]").off();
-		evo.on("click keyup", function(e) {
+		let evo = $("[data-src='profile'][data-act]").off();
+		evo.on("click", function(e) {
 			_eventAction(e);
 		});
 	};
@@ -22,55 +23,29 @@ const profile = (function() {
 		let type = e.type;
 		
 		if(type == "click") {
-			if(action == "clickSignUp") {
-				_event.clickSignUp();
-			} else if(action == "clickLogin") {
-				_event.clickLogin();
-			}
-		} else if(type == "keyup") {
-			if(action == "loginId" || action == "loginPw") {
-				if(e.keyCode == 13) {
-					_event.clickLogin();
-				}
+			if(action == "clickProfile") {
+				_event.clickProfile(evo);
+			} else if(action == "clickProfileAddBtn") {
+				_event.clickProfileAddBtn();
 			}
 		}
 	};
 	
 	// 이벤트 실행
 	let _event = {
-		clickSignUp: function() {
-			location.href = "signUp";
+		// 프로필 선택
+		clickProfile: function(evo) {
+			
 		},
 		
-		clickLogin: function() {
-			let email_v = $("#email").val();
-			let password_v = $("#pw").val();
+		// 프로필 추가 클릭
+		clickProfileAddBtn: function() {
+			$("#addProfileModal").show();
+		},
+		
+		// 프로필 추가 실행
+		clickProfileAdd: function() {
 			
-			if(comm.isNull(email_v) || comm.isNull(password_v)) {
-				modal.alert({
-					content: "입력되지 않은 값이 있습니다."
-				});
-				return;
-			}
-			
-			let url_v = "/login";
-			
-			let data_v = {
-				email: email_v,
-				password: password_v
-			}
-			
-			comm.send(url_v, data_v, "POST", function(resp) {
-				let code = resp.body.code;
-				
-				if(code == 1002 || code == 1003) {
-					modal.alert({
-						content: "아이디 혹은 비밀번호 오류입니다."
-					});
-				} else {
-					location.href = "/";
-				}
-			});
 		},
 	};
 	
@@ -78,6 +53,32 @@ const profile = (function() {
 	function _headerBtnChange() {
 		let btn = $(".nav-btn");
 		btn.remove();
+	};
+	
+	// 계정에 따른 프로필 세팅
+	function _profileSetting() {
+		let url_v = "/member/profile/list";
+		
+		let data_v = {idx_member:4};
+		
+		comm.send(url_v, data_v, "POST", function(resp) {
+			let list = resp.body.list;
+			
+			let box_o = $("#imgBox");
+			for(let profile of list) {
+				let img_o = $("<img>").addClass("profile-img");
+				
+				let file = profile.profile_file;
+				if(comm.isNull(file)) {
+					file = "/assets/imgs/basic_profile.png";						
+				}
+				img_o.attr("src", file);
+				img_o.attr("data-src", "profile");
+				img_o.attr("data-act", "clickProfile");
+				
+				box_o.append(img_o);
+			}
+		});
 	};
 	
 	return {

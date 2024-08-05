@@ -13,19 +13,6 @@
 		)
 	</insert>
 	
-	<!-- 회원 프로필 추가 -->
-	<insert id="addProfile" parameterType="HashMap">
-		INSERT INTO MEMBER_PROFILE (
-			  idx_member
-			, nickname
-			, profile_file
-		) VALUES (
-			  #{idx_member}
-			, #{nickname}
-			, #{profile_file}
-		)
-	</insert>
-	
 	<!-- 이메일 인증번호 저장 -->
 	<insert id="saveAuthNum" parameterType="HashMap">
 		INSERT INTO EMAIL_AUTH (
@@ -78,4 +65,40 @@
 		WHERE
 			email = #{email}
 	</select>
+	
+	<!-- 계정에 따른 프로필 리스트 -->
+	<select id="getProfileList" parameterType="HashMap">
+		SELECT
+			  idx AS idx_profile
+			, nickname
+			, profile_file
+		FROM
+			MEMBER_PROFILE
+		WHERE
+			idx_member = #{idx_member}
+		ORDER BY idx
+	</select>
+	
+	<!-- 프로필 추가 -->
+	<insert id="addProfile" parameterType="HashMap">
+		INSERT INTO MEMBER_PROFILE (
+			  idx_member
+			, nickname
+		) VALUES (
+			  #{idx_member}
+			, #{nickname}
+		)
+	</insert>
+	
+	<!-- 프로필 수정 -->
+	<update id="modifyProfile" parameterType="HashMap">
+		UPDATE MEMBER_PROFILE 
+		SET 
+			  nickname = #{nickname}
+			, profile_file = #{profile_file}
+		WHERE
+			idx_member = #{idx_member}
+		AND
+			idx = #{idx_profile}
+	</update>
 </mapper>
