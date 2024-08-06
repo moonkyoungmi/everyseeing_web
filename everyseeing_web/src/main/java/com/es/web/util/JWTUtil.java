@@ -50,4 +50,21 @@ public class JWTUtil {
 				.signWith(createKey(SECRET_KEY), SignatureAlgorithm.HS256)
 				.compact();
 	}
+	
+	/**
+	 * JWT 토큰 파싱
+	 * @param token 토큰
+	 * @return 토큰 파싱 맵 객체
+	 */
+	public Map<String, Object> parseJwtToken(String token) {
+	    try {
+	    	return new HashMap<>(Jwts.parserBuilder()
+            		.setSigningKey(createKey(SECRET_KEY))
+            		.build().parseClaimsJws(token)
+            		.getBody());
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    	return null;
+	    }
+	}
 }

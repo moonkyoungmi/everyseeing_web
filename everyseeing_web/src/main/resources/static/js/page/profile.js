@@ -40,7 +40,7 @@ const profile = (function() {
 		
 		// 프로필 추가 클릭
 		clickProfileAddBtn: function() {
-			$("#addProfileModal").show();
+			$("#addProfileModal").modal("show");
 		},
 		
 		// 프로필 추가 실행
@@ -59,7 +59,7 @@ const profile = (function() {
 	function _profileSetting() {
 		let url_v = "/member/profile/list";
 		
-		let data_v = {idx_member:4};
+		let data_v = {};
 		
 		comm.send(url_v, data_v, "POST", function(resp) {
 			let list = resp.body.list;
