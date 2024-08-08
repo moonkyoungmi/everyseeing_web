@@ -84,9 +84,11 @@
 		INSERT INTO MEMBER_PROFILE (
 			  idx_member
 			, nickname
+			, profile_file
 		) VALUES (
 			  #{idx_member}
 			, #{nickname}
+			, #{profile_file}
 		)
 	</insert>
 	
@@ -101,4 +103,14 @@
 		AND
 			idx = #{idx_profile}
 	</update>
+	
+	<!-- 프로필 개수 확인 -->
+	<select id="countProfile" parameterType="HashMap">
+		SELECT
+			COUNT(*)
+		FROM
+			MEMBER_PROFILE
+		WHERE	
+			idx_member = #{idx_member}
+	</select>
 </mapper>

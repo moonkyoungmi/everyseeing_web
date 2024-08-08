@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.es.web.vo.RequestMap;
 
@@ -75,10 +77,12 @@ public class MemberController {
 	 * @throws Exception
 	 */
 	@PostMapping("/profile/add")
-	public Map<String, Object> addProfile(RequestMap reqMap) throws Exception {
+	public Map<String, Object> addProfile(RequestMap reqMap, MultipartHttpServletRequest mRequest) throws Exception {
 		Map<String, Object> param = reqMap.getMap();
 		
-		return memberService.addProfile(param);
+		MultipartFile mFile = mRequest.getFile("profile_file");
+		
+		return memberService.addProfile(param, mFile);
 	}
 
 	/**

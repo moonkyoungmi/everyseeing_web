@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.es.web.email.MailData;
 import com.es.web.email.MailService;
@@ -149,8 +150,18 @@ public class MemberService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> addProfile(Map<String, Object> param) throws Exception {
+	public Map<String, Object> addProfile(Map<String, Object> param, MultipartFile mFile) throws Exception {
 		ResponseMap respMap = new ResponseMap();
+		
+		// 프로필 개수 확인
+		int profileCnt = memberMapper.countProfile(param);
+		if(profileCnt >= 4) {
+			return respMap.getResponseMap(Code.MEMBER_PROFILE_IS_FULL);
+		} else if(profileCnt <= 0) {
+			return respMap.getResponseMap(Code.MEMBER_NOT_EXIST);
+		}
+		
+		// 파일 처리
 		
 		memberMapper.addProfile(param);
 		

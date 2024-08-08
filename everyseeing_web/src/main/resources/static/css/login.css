@@ -166,6 +166,12 @@ span {
 	margin-top: 80px;
 }
 
+.basic-img-box {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	position: relative;
+}
+
 .profile-img {
 	width:160px;
 	height:160px;
@@ -203,4 +209,56 @@ span {
 
 .btn-save:hover {
 	background-color: #19192D;
+}
+
+.profile-input {
+	color: black;
+}
+
+.profile-input:focus {
+	background-color: transparent;
+	border-color: #f2e9e4;
+	color: black;
+	outline: 2px solid #9A8C98;
+}
+
+.profile-input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    -webkit-text-fill-color: black;
+}
+
+.profile-add-img {
+	width:100%;
+	height:160px;
+}
+
+.img-field {
+	width:160px;
+	height:160px;
+	position: relative;
+}
+
+.img-field:hover {
+	cursor: pointer;
+}
+
+.img-field:hover .img-info{
+	opacity: 1;
+}
+
+.img-info {
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	bottom: 0px;
+	background: rgba(0,0,0,0.5);
+	transition: opacity 0.35s ease-in-out;
+}
+
+.img-info p {
+	color: white;
+}
+
+.img-file {
+	display: none;
 }

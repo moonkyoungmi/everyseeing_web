@@ -9,7 +9,7 @@ const profile = (function() {
 	// 이벤트 초기화 
 	function _eventInit() {
 		let evo = $("[data-src='profile'][data-act]").off();
-		evo.on("click", function(e) {
+		evo.on("click change", function(e) {
 			_eventAction(e);
 		});
 	};
@@ -27,6 +27,14 @@ const profile = (function() {
 				_event.clickProfile(evo);
 			} else if(action == "clickProfileAddBtn") {
 				_event.clickProfileAddBtn();
+			} else if(action == "clickProfileAdd") {
+				_event.clickProfileAdd();
+			} else if(action == "clickModifyImg") {
+				_event.clickModifyImg();
+			}
+		} else if(type == "change") {
+			if(action == "changeFile") {
+				_event.changeFile(evo);
 			}
 		}
 	};
@@ -40,13 +48,62 @@ const profile = (function() {
 		
 		// 프로필 추가 클릭
 		clickProfileAddBtn: function() {
+			$("#nickname").val("");
+			$("#imgPreview").attr("src", "/assets/imgs/basic_profile.png");
+			$("#fileInput").val("");
 			$("#addProfileModal").modal("show");
 		},
 		
 		// 프로필 추가 실행
 		clickProfileAdd: function() {
+			let file = $("#fileInput")[0].files[0];
+			if(comm.isNull(file)) {
+				file = "/assets/imgs/basic_profile.png";
+			}
 			
+			let url_v = "/member/profile/add";
+			
+			let data_v = {
+				nickname: $("#nickname").val(),
+				profile_file: file
+			};
+			
+			let f_data = comm.changeFormData(data_v);
+			
+			comm.sendFile(url_v, f_data, "POST", function(resp) {
+				let code = resp.body.code;
+				if(code == 1002) {
+					modal.alert({
+						content: "존재하지 않는 회원입니다."
+					});
+					return;
+				} else if(code == 1004) {
+					modal.alert({
+						content: "더이상 프로필을 생성할 수 없습니다."
+					});
+					return;
+				}
+				
+				$("#addProfileModal").modal("hide");
+				_profileSetting();
+			});
 		},
+		
+		// 프로필 추가 - 프로필 이미지 변경
+		clickModifyImg: function() {
+			$("#fileInput").trigger("click");
+		},
+		
+		// 프로필 사진 변경 미리보기
+		changeFile: function(evo) {
+			let file = $(evo)[0].files[0];
+			let reader = new FileReader();
+			
+		    reader.onload = function(e) {
+		    	$("#imgPreview").attr("src", e.target.result);
+		    };
+		    reader.readAsDataURL(file);
+		}
 	};
 	
 	// 헤더 버튼 수정

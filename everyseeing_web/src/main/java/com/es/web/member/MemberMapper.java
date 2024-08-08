@@ -35,4 +35,7 @@ public interface MemberMapper {
 	// 프로필 수정
 	public int modifyProfile(Map<String, Object> param);
 	
+	// 프로필 개수 확인
+	public int countProfile(Map<String, Object> param);
+	
 }
