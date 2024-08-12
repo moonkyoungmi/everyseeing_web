@@ -49,12 +49,18 @@ public class CustomArgumentResolver implements HandlerMethodArgumentResolver {
 		// 토큰 파싱 후 idx 추가
 		HttpSession session = request.getSession();
 		String token = (String) session.getAttribute(TOKEN_NAME);
+		String idxProfile = (String) session.getAttribute("login_profile");
 		
 		// 토큰이 있을 경우 idx_member 파라미터에 추가
 		if(token!= null && !token.equals("")) {
 			// 토큰 파싱
 			Map<String, Object> claims = jwtUtil.parseJwtToken(token);
 			bodyMap.put("idx_member", claims.get("login_idx"));
+		}
+		
+		// 프로필 idx
+		if(idxProfile != null && !idxProfile.equals("")) {
+			bodyMap.put("idx_profile", idxProfile);
 		}
 		
 		// 파라미터 설정

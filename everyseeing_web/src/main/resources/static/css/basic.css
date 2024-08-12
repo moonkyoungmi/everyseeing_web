@@ -72,3 +72,54 @@ nav {
 .content {
 	min-height: 800px;
 }
+
+.header-profile-img {
+	width: 48px;
+	height: 48px;
+	border-radius: 50px;
+}
+
+div .blank {
+	padding-top: 10px;
+}
+
+.nav-profile:hover {
+	cursor: pointer;
+}
+
+.nav-profile:hover .menu-field {
+	display: block;
+}
+
+.menu-field {
+	display: none;
+	position: absolute;
+	z-index : 1;
+	width: 150px;
+	right: 0px;
+	background-color: #f2e9e4;
+	border-radius: 20px;
+}
+
+.menu-field > ul {
+	list-style-type: none;
+}
+
+.menu-field > ul > li {
+	width: 100%;
+	border: none;
+	padding: 15px;
+}
+
+.menu-field > ul > li > a {
+	text-decoration: none;
+	color: #22223b;
+}
+
+.list-group-item {
+	background-color: white;
+}
+
+.menu-field > ul > li:hover {
+	background-color: #f2e9e4;
+}

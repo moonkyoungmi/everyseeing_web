@@ -224,4 +224,19 @@ public class MemberService {
 		
 		return respMap.getResponseMap();
 	}
+	
+	/**
+	 * 프로필 정보
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> getProfileInfo(Map<String, Object> param) throws Exception {
+		ResponseMap respMap = new ResponseMap();
+		
+		Map<String, Object> data = memberMapper.getProfileInfo(param);
+		respMap.setBody("data", data);
+		
+		return respMap.getResponseMap();
+	}
 }

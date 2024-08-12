@@ -24,7 +24,18 @@
 					</button>
 			    </div>
 			    <div class="nav-profile">
-			    	<img th:src="@{/assets/imgs/basic_profile.png}">
+			    	<div class="profile-field">
+			    		<img th:src="@{/assets/imgs/basic_profile.png}" id="profileImg" class="header-profile-img">
+			    		<span><b id="nickname"></b></span>
+			    	</div>
+			    	<div class="blank"></div>
+			    	<div class="menu-field">
+				    	<ul class="list-group">
+				    		<li class="list-group-item" data-src="header" data-act="clickModifyProflle"><a href="javascript:;">프로필 수정</a></li>
+				    		<li class="list-group-item" data-src="header" data-act="clickSetting"><a href="javascript:;">설정</a></li>
+				    		<li class="list-group-item" data-src="header" data-act="clickLogout"><a href="javascript:;">로그아웃</a></li>
+				    	</ul>
+			    	</div>
 			    </div>
 			</nav>
 		</header>

@@ -118,4 +118,18 @@
 		WHERE	
 			idx_member = #{idx_member}
 	</select>
+	
+	<!-- 프로필 정보 -->
+	<select id="getProfileInfo" parameterType="HashMap">
+		SELECT
+			  idx AS idx_profile
+			, nickname
+			, profile_file
+		FROM
+			MEMBER_PROFILE
+		WHERE
+			idx_member = #{idx_member}
+		AND
+			idx = #{idx_profile}
+	</select>
 </mapper>

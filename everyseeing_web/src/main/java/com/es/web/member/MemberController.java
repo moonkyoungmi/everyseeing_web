@@ -112,4 +112,17 @@ public class MemberController {
 		
 		return memberService.selectProfile(param, request);
  	}
+	
+	/**
+	 * 프로필 정보
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/profile/info")
+	public Map<String, Object> getProfileInfo(RequestMap reqMap) throws Exception {
+		Map<String, Object> param = reqMap.getMap();
+		
+		return memberService.getProfileInfo(param);
+ 	}
 }
