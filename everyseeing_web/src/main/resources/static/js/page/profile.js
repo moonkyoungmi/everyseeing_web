@@ -129,7 +129,7 @@ const profile = (function() {
 		comm.send(url_v, data_v, "POST", function(resp) {
 			let list = resp.body.list;
 			
-			let box_o = $("#imgBox");
+			let box_o = $("#imgBox").empty();
 			for(let profile of list) {
 				let img_o = $("<img>").addClass("profile-img");
 				

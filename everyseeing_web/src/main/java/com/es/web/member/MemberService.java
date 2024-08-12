@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.es.web.email.MailData;
 import com.es.web.email.MailService;
 import com.es.web.email.template.JoinAuthTemplate;
+import com.es.web.s3.S3Service;
 import com.es.web.util.CommonUtil;
 import com.es.web.util.SHAUtil;
 import com.es.web.vo.Code;
@@ -28,6 +30,15 @@ public class MemberService {
 	
 	@Autowired
 	private MailService mailService;
+	
+	@Autowired
+	private S3Service s3Service;
+	
+	@Value("${s3.member}")
+	private String S3_MEMBER;
+
+	@Value("${s3.profile}")
+	private String S3_PROFILE;
 	
 	/**
 	 * 회원가입
@@ -69,7 +80,7 @@ public class MemberService {
 		param.put("nickname", "기본");
 		
 		if(memberMapper.addProfile(param) <= 0) {
-			return respMap.getResponseMap();
+			return respMap.getResponseMap(Code.ERROR);
 		}
 		
 		return respMap.getResponseMap();
@@ -164,9 +175,23 @@ public class MemberService {
 			return respMap.getResponseMap(Code.MEMBER_NOT_EXIST);
 		}
 		
+		if(memberMapper.addProfile(param) <= 0) {
+			return respMap.getResponseMap(Code.ERROR);
+		}
+		param.put("idx_profile", param.get("idx"));
+
 		// 파일 처리
-		
-		memberMapper.addProfile(param);
+		if(mFile != null) {
+			String fileName = mFile.getOriginalFilename();
+			String uploadPath = S3_MEMBER + param.get("idx_member") + "/" + S3_PROFILE + param.get("idx_profile") + "/" + fileName;
+			String s3Path = s3Service.uploadFile(mFile, uploadPath);
+			param.put("profile_file", s3Path);
+
+			if(memberMapper.modifyProfile(param) <= 0) {
+				s3Service.deleteFile(s3Path);
+				return respMap.getResponseMap(Code.ERROR);
+			}
+		}
 		
 		return respMap.getResponseMap();
 	}

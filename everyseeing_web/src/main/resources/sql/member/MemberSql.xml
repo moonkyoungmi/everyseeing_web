@@ -80,7 +80,7 @@
 	</select>
 	
 	<!-- 프로필 추가 -->
-	<insert id="addProfile" parameterType="HashMap">
+	<insert id="addProfile" parameterType="HashMap" useGeneratedKeys="true" keyProperty="idx">
 		INSERT INTO MEMBER_PROFILE (
 			  idx_member
 			, nickname
@@ -96,8 +96,13 @@
 	<update id="modifyProfile" parameterType="HashMap">
 		UPDATE MEMBER_PROFILE 
 		SET 
-			  nickname = #{nickname}
+			update_date = NOW()
+			<if test="nickname != null and nickname != ''">
+			, nickname = #{nickname}
+			</if>
+			<if test="profile_file != null and profile_file != ''">
 			, profile_file = #{profile_file}
+			</if>
 		WHERE
 			idx_member = #{idx_member}
 		AND
