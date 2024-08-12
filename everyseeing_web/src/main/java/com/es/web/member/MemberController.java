@@ -11,6 +11,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.es.web.vo.RequestMap;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api/member")
 public class MemberController {
@@ -97,4 +99,17 @@ public class MemberController {
 		
 		return memberService.modifyProfile(param);
 	}
+	
+	/**
+	 * 프로필 선택
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/profile/select")
+	public Map<String, Object> selectProfile(RequestMap reqMap, HttpServletRequest request) throws Exception {
+		Map<String, Object> param = reqMap.getMap();
+		
+		return memberService.selectProfile(param, request);
+ 	}
 }

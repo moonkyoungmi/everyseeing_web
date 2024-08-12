@@ -30,22 +30,28 @@ public class CustomInterceptor implements HandlerInterceptor {
 		// 세션 토큰 확인
 		String token = (String) session.getAttribute(TOKEN_NAME);
 		
-		// 토큰이 없으면 로그인 페이지로 이동
 		if(requestUrl.equals("/")) {
+			// 토큰이 없으면 로그인 페이지로 이동
 			if(token == null || token.equals("")) {
 				log.info("====================> TOKEN IS NOT EXIST");
 				response.sendRedirect("/login");
 				
 				return false;
 			}
-		}
-		
-		// 토큰이 있으면서 로그인 페이지 또는 회원가입 페이지 접근 시 메인 페이지로 이동
-		if(requestUrl.startsWith("/login") || requestUrl.startsWith("/signUp/")){
+		} else if(requestUrl.startsWith("/login") || requestUrl.startsWith("/signUp")){
+			// 토큰이 있으면서 로그인 페이지, 회원가입 페이지에 접근 시 메인 페이지로 이동
 			if(token != null && !token.equals("")) {
 				log.info("====================> TOKEN IS EXIST");
 				response.sendRedirect("/");
-				
+
+				return false;
+			}
+		} else if(requestUrl.startsWith("/profile")) {
+			// 토큰이 없는 채로 프로필 선택 페이지에 접근 시 로그인 페이지로 이동
+			if(token == null || token.equals("")) {
+				log.info("====================> TOKEN IS EXIST");
+				response.sendRedirect("/login");
+			
 				return false;
 			}
 		}

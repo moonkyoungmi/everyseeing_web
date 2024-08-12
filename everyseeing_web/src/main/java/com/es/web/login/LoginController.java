@@ -47,6 +47,7 @@ public class LoginController {
 		
 		HttpSession session = request.getSession();
 		session.removeAttribute(TOKEN_NAME);
+		session.removeAttribute("login_profile");
 		
 		response.sendRedirect("/login");
 	}

@@ -43,7 +43,15 @@ const profile = (function() {
 	let _event = {
 		// 프로필 선택
 		clickProfile: function(evo) {
+			let url_v = "/member/profile/select";
 			
+			let data_v = {
+				idx_profile: evo.attr("data-idx")
+			}
+			
+			comm.send(url_v, data_v, "POST", function() {
+				location.href = "/";
+			});
 		},
 		
 		// 프로필 추가 클릭
@@ -132,9 +140,12 @@ const profile = (function() {
 				img_o.attr("src", file);
 				img_o.attr("data-src", "profile");
 				img_o.attr("data-act", "clickProfile");
+				img_o.attr("data-idx", profile.idx_profile);
 				
 				box_o.append(img_o);
 			}
+			
+			_eventInit();
 		});
 	};
 	

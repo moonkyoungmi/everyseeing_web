@@ -16,6 +16,9 @@ import com.es.web.util.SHAUtil;
 import com.es.web.vo.Code;
 import com.es.web.vo.ResponseMap;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @Service
 @Transactional
 public class MemberService {
@@ -178,6 +181,21 @@ public class MemberService {
 		ResponseMap respMap = new ResponseMap();
 		
 		memberMapper.modifyProfile(param);
+		
+		return respMap.getResponseMap();
+	}
+	
+	/**
+	 * 프로필 선택
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> selectProfile(Map<String, Object> param, HttpServletRequest request) throws Exception {
+		ResponseMap respMap = new ResponseMap();
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("login_profile", param.get("idx_profile"));
 		
 		return respMap.getResponseMap();
 	}
