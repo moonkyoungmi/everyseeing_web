@@ -28,16 +28,48 @@
 			    		<img th:src="@{/assets/imgs/basic_profile.png}" id="profileImg" class="header-profile-img">
 			    		<span><b id="nickname"></b></span>
 			    	</div>
-			    	<div class="blank"></div>
 			    	<div class="menu-field">
 				    	<ul class="list-group">
-				    		<li class="list-group-item" data-src="header" data-act="clickModifyProflle"><a href="javascript:;">프로필 수정</a></li>
+				    		<li class="list-group-item" data-src="header" data-act="clickModifyProfile"><a href="javascript:;">프로필 수정</a></li>
 				    		<li class="list-group-item" data-src="header" data-act="clickSetting"><a href="javascript:;">설정</a></li>
 				    		<li class="list-group-item" data-src="header" data-act="clickLogout"><a href="javascript:;">로그아웃</a></li>
 				    	</ul>
 			    	</div>
 			    </div>
 			</nav>
+			
+			<!-- 프로필 수정 모달 -->
+			<div class="modal fade" id="modifyProfileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+				<div class="modal-dialog modal-dialog-centered">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			        		<h5 class="modal-title">프로필 수정</h5>
+			        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      		</div>
+				    	<div class="modal-body">
+				    		<div class="basic-img-box">
+				    			<div class="img-field" id="imgField" data-src="header" data-act="clickModifyImg">
+				    				<div>
+										<img src="/assets/imgs/basic_profile.png" class="profile-add-img" id="imgPreview">
+									</div>
+									<div class="img-info">
+										<p>변경</p>
+				    				</div>
+				    			</div>
+								<input type="file" class="img-file" id="fileInput" data-src="header" data-act="changeFile">
+				    		</div>
+				    		<div class="form-floating">
+				    			<input type="text" class="form-control profile-input" id="modifyNickname" placeholder="프로필명">
+				    			<label for="modifyNickname">프로필명</label>
+				    		</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-cancel" data-bs-dismiss="modal">취소</button>
+						    <button type="button" class="btn btn-save" data-src="header" data-act="clickProfileSave">저장</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</header>
 	</th:block>
 	<th:block th:fragment="loginHeaderFragment">

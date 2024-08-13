@@ -1,8 +1,16 @@
 @charset "UTF-8";
 
+@font-face {
+     font-family: 'S-CoreDream-3Light';
+     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+
 body {
 	background-color: #22223b;
 	color: #f2e9e4;
+	font-family: 'S-CoreDream-3Light';
 }
 
 header {
@@ -79,10 +87,6 @@ nav {
 	border-radius: 50px;
 }
 
-div .blank {
-	padding-top: 10px;
-}
-
 .nav-profile:hover {
 	cursor: pointer;
 }
@@ -97,10 +101,21 @@ div .blank {
 	z-index : 1;
 	width: 150px;
 	right: 0px;
-	background-color: #f2e9e4;
 	border-radius: 20px;
+	margin-top: 10px;
 }
 
+.menu-field:after { 
+ 	border-top: 0px solid transparent; 
+ 	border-left: 10px solid transparent; 
+  	border-right: 10px solid transparent; 
+  	border-bottom: 10px solid white; 
+  	content: ""; 
+  	position: absolute;
+  	top: -10px;
+  	left: 100px;  
+ }
+ 
 .menu-field > ul {
 	list-style-type: none;
 }
@@ -122,4 +137,119 @@ div .blank {
 
 .menu-field > ul > li:hover {
 	background-color: #f2e9e4;
+}
+
+.basic-img-box {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	position: relative;
+	text-align: -webkit-center;
+	
+}
+
+.profile-img {
+	width: 160px;
+	height: 160px;
+	margin-left: 50px;
+	margin-right: 50px;
+	border-radius: 50px;
+}
+
+.profile-img:hover {
+	cursor: pointer;
+	box-shadow: 0 0 0 10px #9A8C98;	
+}
+
+.profile-add {
+	margin-top: 100px;
+}
+
+.profile-add-btn {
+	background-color: transparent;
+	border: 2px solid #9A8C98;
+	border-radius: 10px;
+	width: 150px;
+	height: 60px;
+	color: #f2e9e4;
+}
+
+.btn-cancel {
+	width: 60px;
+	background-color: #9A8C98;
+	color: #f2e9e4;
+}
+
+.btn-cancel:hover {
+	background-color: #8A7D88;
+	border-color: #8A7D88;
+	color: #f2e9e4;
+}
+
+.btn-save {
+	width: 60px;
+	background-color: #22223B;
+	color: #f2e9e4;
+}
+
+.btn-save:hover {
+	background-color: #19192D;
+	color: #f2e9e4;
+}
+
+.profile-input {
+	color: black;
+}
+
+.profile-input:focus {
+	background-color: transparent;
+	border-color: #f2e9e4;
+	color: black;
+	outline: 2px solid #9A8C98;
+}
+
+.profile-input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    -webkit-text-fill-color: black;
+}
+
+.profile-add-img {
+	width:100%;
+	height:160px;
+}
+
+.img-field {
+	width:160px;
+	height:160px;
+	position: relative;
+}
+
+.img-field:hover {
+	cursor: pointer;
+}
+
+.img-field:hover .img-info{
+	opacity: 1;
+}
+
+.img-info {
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	bottom: 0px;
+	background: rgba(0,0,0,0.5);
+	transition: opacity 0.35s ease-in-out;
+}
+
+.img-info p {
+	color: white;
+	position: relative;
+	top: 7.5px;
+}
+
+.img-file {
+	display: none;
+}
+
+.modal {
+	color: #212529;
 }

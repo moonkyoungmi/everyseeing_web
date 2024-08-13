@@ -85,10 +85,12 @@
 			  idx_member
 			, nickname
 			, profile_file
+			, file_name
 		) VALUES (
 			  #{idx_member}
 			, #{nickname}
 			, #{profile_file}
+			, #{file_name}
 		)
 	</insert>
 	
@@ -102,6 +104,7 @@
 			</if>
 			<if test="profile_file != null and profile_file != ''">
 			, profile_file = #{profile_file}
+			, file_name = #{file_name}
 			</if>
 		WHERE
 			idx_member = #{idx_member}
@@ -125,6 +128,7 @@
 			  idx AS idx_profile
 			, nickname
 			, profile_file
+			, file_name
 		FROM
 			MEMBER_PROFILE
 		WHERE

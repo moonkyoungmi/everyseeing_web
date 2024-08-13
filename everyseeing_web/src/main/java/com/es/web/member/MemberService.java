@@ -186,6 +186,7 @@ public class MemberService {
 			String uploadPath = S3_MEMBER + param.get("idx_member") + "/" + S3_PROFILE + param.get("idx_profile") + "/" + fileName;
 			String s3Path = s3Service.uploadFile(mFile, uploadPath);
 			param.put("profile_file", s3Path);
+			param.put("file_name", fileName);
 
 			if(memberMapper.modifyProfile(param) <= 0) {
 				s3Service.deleteFile(s3Path);
@@ -202,10 +203,36 @@ public class MemberService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> modifyProfile(Map<String, Object> param) throws Exception {
+	public Map<String, Object> modifyProfile(Map<String, Object> param, MultipartFile mFile) throws Exception {
 		ResponseMap respMap = new ResponseMap();
 		
-		memberMapper.modifyProfile(param);
+		Map<String, Object> data = memberMapper.getProfileInfo(param);
+		if(data == null) {
+			return respMap.getResponseMap(Code.ERROR);
+		}
+		
+		// 파일 처리
+		String s3Path = "";
+		String basicPath = S3_MEMBER + param.get("idx_member") + "/" + S3_PROFILE + param.get("idx_profile") + "/";
+		if(mFile != null) {
+			// 기존 파일 삭제
+			String prePath = basicPath + (String) data.get("file_name");
+			s3Service.deleteFile(prePath );
+			
+			// 새 파일 저장
+			String fileName = mFile.getOriginalFilename();
+			String uploadPath = basicPath + fileName;
+			s3Path = s3Service.uploadFile(mFile, uploadPath);
+			param.put("profile_file", s3Path);
+			param.put("file_name", fileName);
+		}
+
+		if(memberMapper.modifyProfile(param) <= 0) {
+			if(mFile != null) {
+				s3Service.deleteFile(s3Path);
+			}
+			return respMap.getResponseMap(Code.ERROR);
+		}
 		
 		return respMap.getResponseMap();
 	}

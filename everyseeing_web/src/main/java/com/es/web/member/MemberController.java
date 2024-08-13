@@ -94,10 +94,12 @@ public class MemberController {
 	 * @throws Exception
 	 */
 	@PostMapping("/profile/modify")
-	public Map<String, Object> modifyProfile(RequestMap reqMap) throws Exception {
+	public Map<String, Object> modifyProfile(RequestMap reqMap, MultipartHttpServletRequest mRequest) throws Exception {
 		Map<String, Object> param = reqMap.getMap();
 		
-		return memberService.modifyProfile(param);
+		MultipartFile mFile = mRequest.getFile("profile_file");
+		
+		return memberService.modifyProfile(param, mFile);
 	}
 	
 	/**
