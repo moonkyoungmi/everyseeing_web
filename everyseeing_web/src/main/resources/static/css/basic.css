@@ -253,3 +253,13 @@ nav {
 .modal {
 	color: #212529;
 }
+
+.card-list {
+	margin-top: 30px;
+}
+
+.card-list > .card {
+	width: 200px;
+	margin: 8px;
+	display: inline-block;
+}

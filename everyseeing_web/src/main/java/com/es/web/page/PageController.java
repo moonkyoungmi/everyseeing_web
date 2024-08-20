@@ -9,7 +9,7 @@ public class PageController {
 	@GetMapping("/")
 	public String main() {
 		
-		return "main";
+		return "page/home";
 	}
 	
 	@GetMapping("/login")
