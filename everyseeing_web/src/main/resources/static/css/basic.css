@@ -263,3 +263,14 @@ nav {
 	margin: 8px;
 	display: inline-block;
 }
+
+.genre-select {
+	border: 2px solid white;
+	background-color: transparent;
+	color: white;
+	width: 150px;
+}
+
+.genre-select > option {
+	background-color: #22223b;
+}

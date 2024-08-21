@@ -2,6 +2,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 <th:block layout:fragment="content">
 	<div class="container content">
+		<div>
+			<select class="form-select genre-select" id="genreList" data-src="home" data-act="changeGenre">
+			</select>
+		</div>
 		<div class="card-list">
 			<div class="card">
 				<img class="card-img-top" src="/assets/imgs/card_sample.png">
@@ -35,11 +39,24 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- 컨텐츠 상세 모달 -->
+	<div class="modal fade" id="contentModal" data-bs-keyboard="false" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      		</div>
+		    	<div class="modal-body">
+				</div>
+			</div>
+		</div>
+	</div>
 </th:block>
 <th:block layout:fragment="script">
 	<script th:src="@{/js/page/home.js}"></script>
 	<script>
-		layout.setCallback(main.init);
+		layout.setCallback(home.init);
 	</script>
 </th:block>
 </html>
