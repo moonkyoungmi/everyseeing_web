@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<th:block layout:fragment="content">
+	<div class="container content">
+		<div class="select-field">
+			<select class="form-select genre-select" id="genreList" data-src="home" data-act="changeGenre">
+			</select>
+		</div>
+		<div id="contentList">
+		<!-- 
+			<div class="card-list">
+				<div class="card">
+					<img class="card-img-top" src="/assets/imgs/card_sample.png">
+					<div class="card-body">
+						<span>test</span>
+					</div>
+				</div>
+				<div class="card">
+					<img class="card-img-top" src="/assets/imgs/card_sample.png">
+					<div class="card-body">
+						<span>test</span>
+					</div>
+				</div>
+				<div class="card">
+					<img class="card-img-top" src="/assets/imgs/card_sample.png">
+					<div class="card-body">
+						<span>test</span>
+					</div>
+				</div>
+				<div class="card">
+					<img class="card-img-top" src="/assets/imgs/card_sample.png">
+					<div class="card-body">
+						<span>test</span>
+					</div>
+				</div>
+				<div class="card">
+					<img class="card-img-top" src="/assets/imgs/card_sample.png">
+					<div class="card-body">
+						<span>test</span>
+					</div>
+				</div>
+			</div>
+		 -->
+		</div>
+		<div class="plus-field" id="moreView">
+			<div  class="arrow">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+				</svg>
+			</div>
+			<a class="more-view" href="javascript:;" data-src="home" data-act="clickMoreView">더보기</a>
+		</div>
+	</div>
+	
+	<!-- 컨텐츠 상세 모달 -->
+	<div class="modal fade" id="contentModal" data-bs-keyboard="false" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      		</div>
+		    	<div class="modal-body">
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+<th:block layout:fragment="script">
+	<script th:src="@{/js/page/home.js}"></script>
+	<script>
+		layout.setCallback(home.init);
+	</script>
+</th:block>
+</html>

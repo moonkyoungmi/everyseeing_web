@@ -1,5 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.es.web.member.MemberMapper">
-
+	
+	<!-- 회원가입 -->
+	<insert id="signUp" parameterType="HashMap" useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO MEMBER (
+			  email
+			, password
+		) VALUES (
+			  #{email}
+			, #{enc_password}
+		)
+	</insert>
+	
+	<!-- 이메일 인증번호 저장 -->
+	<insert id="saveAuthNum" parameterType="HashMap">
+		INSERT INTO EMAIL_AUTH (
+			  email
+			, auth_number
+		) VALUES (
+			  #{email}
+			, #{auth_num}
+		)
+	</insert>
+	
+	<!-- 인증번호 확인 -->
+	<select id="getAuthNum" parameterType="HashMap">
+		SELECT
+			auth_number
+		FROM
+			EMAIL_AUTH
+		WHERE
+			email = #{email}
+	</select>
+	
+	<!-- 인증번호 체크 업데이트 -->
+	<update id="modifyAuthNumCheck" parameterType="HashMap">
+		UPDATE EMAIL_AUTH
+		SET check_yn = 'Y'
+		WHERE
+			email = #{email}
+		AND
+			auth_number = #{auth_num}
+	</update>
+	
+	<!-- 이메일 인증 확인 -->
+	<select id="emailAuthCheck" parameterType="HashMap">
+		SELECT
+			check_yn
+		FROM
+			EMAIL_AUTH
+		WHERE
+			email = #{email}
+		AND
+			auth_number = #{auth_num}
+	</select>
+	
+	<!-- 이메일 중복 확인 -->
+	<select id="duplicateEmailCheck" parameterType="HashMap">
+		SELECT
+			COUNT(*)
+		FROM
+			MEMBER
+		WHERE
+			email = #{email}
+	</select>
+	
+	<!-- 계정에 따른 프로필 리스트 -->
+	<select id="getProfileList" parameterType="HashMap">
+		SELECT
+			  idx AS idx_profile
+			, nickname
+			, profile_file
+		FROM
+			MEMBER_PROFILE
+		WHERE
+			idx_member = #{idx_member}
+		ORDER BY idx
+	</select>
+	
+	<!-- 프로필 추가 -->
+	<insert id="addProfile" parameterType="HashMap" useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO MEMBER_PROFILE (
+			  idx_member
+			, nickname
+			, profile_file
+			, file_name
+		) VALUES (
+			  #{idx_member}
+			, #{nickname}
+			, #{profile_file}
+			, #{file_name}
+		)
+	</insert>
+	
+	<!-- 프로필 수정 -->
+	<update id="modifyProfile" parameterType="HashMap">
+		UPDATE MEMBER_PROFILE 
+		SET 
+			update_date = NOW()
+			<if test="nickname != null and nickname != ''">
+			, nickname = #{nickname}
+			</if>
+			<if test="profile_file != null and profile_file != ''">
+			, profile_file = #{profile_file}
+			, file_name = #{file_name}
+			</if>
+		WHERE
+			idx_member = #{idx_member}
+		AND
+			idx = #{idx_profile}
+	</update>
+	
+	<!-- 프로필 개수 확인 -->
+	<select id="countProfile" parameterType="HashMap">
+		SELECT
+			COUNT(*)
+		FROM
+			MEMBER_PROFILE
+		WHERE	
+			idx_member = #{idx_member}
+	</select>
+	
+	<!-- 프로필 정보 -->
+	<select id="getProfileInfo" parameterType="HashMap">
+		SELECT
+			  idx AS idx_profile
+			, nickname
+			, profile_file
+			, file_name
+		FROM
+			MEMBER_PROFILE
+		WHERE
+			idx_member = #{idx_member}
+		AND
+			idx = #{idx_profile}
+	</select>
 </mapper>

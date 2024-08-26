@@ -1,14 +1,24 @@
 package com.es.web.login;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.es.web.util.CommonUtil;
+import com.es.web.util.JWTUtil;
+import com.es.web.util.SHAUtil;
 import com.es.web.vo.Code;
 import com.es.web.vo.ResponseMap;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 @Transactional
 public class LoginService {
@@ -16,37 +26,65 @@ public class LoginService {
 	@Autowired
 	private LoginMapper loginMapper;
 	
+	@Autowired
+	private JWTUtil jwtUtil;
+	
+	@Value("${login.token.name}")
+	private String TOKEN_NAME;
+	
 	/**
 	 * 로그인
 	 * @param param
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> login(Map<String, Object> param) throws Exception {
+	public Map<String, Object> login(Map<String, Object> param, HttpServletRequest request) throws Exception {
 		ResponseMap respMap = new ResponseMap();
 		
-		/**
-		 * 1. 이메일, 비밀번호 입력
-		 * 2. 이메일로 회원 유무 확인
-		 * 3. 회원이 있을 경우 입력한 비밀번호를 암호화 하여 DB 비밀번호와 비교
-		 * 4. 비밀번호가 맞을 경우 로그인 기록 Y 추가, 틀릴 경우 N 추가
-		 * 5. 로그인 성공 후 JWT 토큰 발급
-		 */
-		
 		Map<String, Object> memberInfo = loginMapper.getMemberInfo(param);
+		if(CommonUtil.checkIsNull(memberInfo)) {
+			// 회원 미존재
+			return respMap.getResponseMap(Code.MEMBER_NOT_EXIST);
+		}
 		
-		return respMap.getResponseMap(Code.TEST);
+		String idxMember = String.valueOf(memberInfo.get("idx_member"));
+		param.put("idx_member", idxMember);
+
+		String savesPassword = (String) memberInfo.get("password");
+		String encPassword = SHAUtil.encrypt(String.valueOf(param.get("password")));
+		if(!savesPassword.equals(encPassword)) {
+			// 비밀번호 불일치
+			param.put("login_yn", "N");
+			addLoginHistory(param);
+			return respMap.getResponseMap(Code.MEMBER_LOGIN_FAIL);
+		} else {
+			// 비밀번호 일치
+			param.put("login_yn", "Y");
+			addLoginHistory(param);
+			
+			// JWT 토큰 발급
+			Map<String, Object> claims = new HashMap<>();
+			claims.put("login_ip", param.get("ip"));
+			claims.put("login_idx", memberInfo.get("idx_member"));
+			
+			String accessToken = jwtUtil.createToken(claims);
+			log.debug("====================> ACCESS TOKEN IS " + accessToken);
+			
+			// 세션 저장
+			HttpSession session = request.getSession();
+			session.setAttribute(TOKEN_NAME, accessToken);
+		}
+
+		return respMap.getResponseMap();
 	}
 	
 	/**
-	 * 로그아웃
+	 * 로그인 기록 추가
 	 * @param param
-	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> logout(Map<String, Object> param) throws Exception {
-		ResponseMap respMap = new ResponseMap();
-		
-		return respMap.getResponseMap(Code.OK);
+	private void addLoginHistory(Map<String, Object> param) throws Exception {
+		loginMapper.addLoginHistory(param);
 	}
+	
 }
