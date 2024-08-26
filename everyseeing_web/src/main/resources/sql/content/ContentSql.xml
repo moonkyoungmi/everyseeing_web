@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.es.web.content.ContentMapper">
+	
+	<!-- 장르 리스트 -->
+	<select id="getGenreList" parameterType="HashMap">
+		SELECT
+			  idx AS idx_code
+			, code
+			, description
+		FROM
+			CODE
+		WHERE
+			class = 'GENRE'
+		ORDER BY idx
+	</select>
+	
+	<!-- 영화 콘텐츠 리스트 -->
+	<select id="getMovieContentList" parameterType="HashMap">
+		SELECT
+			  c.idx AS idx_content
+			, c.title
+			, c.summary
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.rating)
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.category)
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre1)
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre2)
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre3)
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword1)
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword2)
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword3)
+			, c.director 
+			, c.thumbnail 
+			, c.thumbnail_filename 
+			, c.broadcast_date 
+			, c.end_date 
+		FROM
+			CONTENT c
+		WHERE
+			c.category = 'MOVIE'
+		<if test="genre != null and genre != 'all'">
+		AND (
+				c.genre1 = #{genre}
+			OR
+				c.genre2 = #{genre}
+			OR
+				c.genre3 = #{genre}
+		)
+		</if>
+		ORDER BY c.idx DESC
+		<if test="limit != null and limit !=''">
+		LIMIT ${limit}
+		</if>
+	</select>
+	
+	<!-- 콘텐츠 개수 -->
+	<select id="getMovieContentCnt" parameterType="HashMap">
+		SELECT
+			  COUNT(*) 
+		FROM
+			CONTENT c
+		WHERE
+			c.category = 'MOVIE'
+		<if test="genre != null and genre!= ''">
+		AND (
+				c.genre1 = #{genre}
+			OR
+				c.genre2 = #{genre}
+			OR
+				c.genre3 = #{genre}
+		)
+		</if>
+	</select>
+	
+</mapper>

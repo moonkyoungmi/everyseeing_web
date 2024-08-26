@@ -29,4 +29,17 @@ public class ContentController {
 		return contentService.getGenreList(param);
 	}
 	
+	/**
+	 * 콘텐츠 리스트
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/list")
+	public Map<String, Object> getContentList(RequestMap reqMap) throws Exception {
+		Map<String, Object> param = reqMap.getMap();
+		
+		return contentService.getContentList(param);
+	}
+	
 }

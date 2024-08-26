@@ -6,37 +6,39 @@
 	</th:block>
 	<th:block th:fragment="headerFragment">
 		<header>
-			<nav class="navbar navbar-expand-lg">
-				<a href="javascript:;" data-src="header" data-act="clickLogo" class="navbar-brand">
-					<img th:src="@{/assets/imgs/main_logo.png}" class="logo">
-				</a>
-			    <div class="navbar-nav">
-					<a class="nav-item nav-link" href="javascript;" data-src="header" data-act="clickMenu" data-menu="new">NEW</a>
-					<a class="nav-item nav-link" href="javascript;" data-src="header" data-act="clickMenu" data-menu="movie">영화</a>
-					<a class="nav-item nav-link" href="javascript;" data-src="header" data-act="clickMenu" data-menu="tv">TV</a>
-					<!-- <a class="nav-item nav-link" href="javascript;" data-src="header" data-act="clickMenu" data-menu="animation">애니메이션</a>  -->
-					<a class="nav-item nav-link" href="javascript;" data-src="header" data-act="clickMenu" data-menu="bookmark">찜한 콘텐츠</a>
-			    </div>
-			    <div class="nav-search">
-			    	<input class="search" type="text" placeholder="제목 검색">
-					<button class="search-btn " type="button">
-						<img th:src="@{/assets/imgs/search_icon.png}" class="search-img">
-					</button>
-			    </div>
-			    <div class="nav-profile">
-			    	<div class="profile-field">
-			    		<img th:src="@{/assets/imgs/basic_profile.png}" id="profileImg" class="header-profile-img">
-			    		<span><b id="nickname"></b></span>
-			    	</div>
-			    	<div class="menu-field">
-				    	<ul class="list-group">
-				    		<li class="list-group-item" data-src="header" data-act="clickModifyProfile"><a href="javascript:;">프로필 수정</a></li>
-				    		<li class="list-group-item" data-src="header" data-act="clickSetting"><a href="javascript:;">설정</a></li>
-				    		<li class="list-group-item" data-src="header" data-act="clickLogout"><a href="javascript:;">로그아웃</a></li>
-				    	</ul>
-			    	</div>
-			    </div>
-			</nav>
+			<div class="container">
+				<nav class="navbar navbar-expand-lg">
+					<a href="javascript:;" data-src="header" data-act="clickLogo" class="navbar-brand">
+						<img th:src="@{/assets/imgs/main_logo.png}" class="logo">
+					</a>
+				    <div class="navbar-nav">
+						<a class="nav-item nav-link" href="javascript;" data-src="header" data-act="clickMenu" data-menu="new">NEW</a>
+						<a class="nav-item nav-link" href="javascript;" data-src="header" data-act="clickMenu" data-menu="movie">영화</a>
+						<a class="nav-item nav-link" href="javascript;" data-src="header" data-act="clickMenu" data-menu="tv">TV</a>
+						<!-- <a class="nav-item nav-link" href="javascript;" data-src="header" data-act="clickMenu" data-menu="animation">애니메이션</a>  -->
+						<a class="nav-item nav-link" href="javascript;" data-src="header" data-act="clickMenu" data-menu="bookmark">찜한 콘텐츠</a>
+				    </div>
+				    <div class="nav-search">
+				    	<input class="search" type="text" placeholder="제목 검색">
+						<button class="search-btn " type="button">
+							<img th:src="@{/assets/imgs/search_icon.png}" class="search-img">
+						</button>
+				    </div>
+				    <div class="nav-profile">
+				    	<div class="profile-field">
+				    		<img th:src="@{/assets/imgs/basic_profile.png}" id="profileImg" class="header-profile-img">
+				    		<span><b id="nickname"></b></span>
+				    	</div>
+				    	<div class="menu-field">
+					    	<ul class="list-group">
+					    		<li class="list-group-item" data-src="header" data-act="clickModifyProfile"><a href="javascript:;">프로필 수정</a></li>
+					    		<li class="list-group-item" data-src="header" data-act="clickSetting"><a href="javascript:;">설정</a></li>
+					    		<li class="list-group-item" data-src="header" data-act="clickLogout"><a href="javascript:;">로그아웃</a></li>
+					    	</ul>
+				    	</div>
+				    </div>
+				</nav>
+			</div>
 			
 			<!-- 프로필 수정 모달 -->
 			<div class="modal fade" id="modifyProfileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">

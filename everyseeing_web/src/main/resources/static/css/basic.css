@@ -32,7 +32,6 @@ footer {
 
 nav {
 	margin-top: 20px;
-	margin-left: 50px;
 	margin-right: 50px;
 	justify-content: center;
 }
@@ -79,6 +78,7 @@ nav {
 
 .content {
 	min-height: 800px;
+	margin-bottom: 80px;
 }
 
 .header-profile-img {
@@ -259,7 +259,7 @@ nav {
 }
 
 .card-list > .card {
-	width: 200px;
+	width: 230px;
 	margin: 8px;
 	display: inline-block;
 }
@@ -273,4 +273,41 @@ nav {
 
 .genre-select > option {
 	background-color: #22223b;
+}
+
+.select-field {
+	margin-top: 30px;
+}
+
+.plus-field {
+	margin-top: 10px;
+	text-align: right;
+	padding-right: 50px;
+}
+
+.arrow {
+	display: inline;
+}
+
+.arrow:hover {
+	cursor: pointer;
+}
+
+.more-view {
+	color: white;
+	text-decoration: none;
+}
+
+.card-img-top {
+	min-width: 228px;
+	min-height: 320px;
+	max-width: 228px;
+	max-height: 320px;
+}
+
+.card-body {
+	overflow: hidden;
+  	white-space: nowrap;
+  	text-overflow: ellipsis;
+  	word-break: break-all;
 }

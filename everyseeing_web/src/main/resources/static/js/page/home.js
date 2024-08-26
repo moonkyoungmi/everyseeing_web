@@ -2,6 +2,7 @@ const home = (function() {
 	
 	function init() {
 		_settingGenre();
+		_settingContent();
 		_eventInit();
 	};
 	
@@ -26,7 +27,7 @@ const home = (function() {
 			}
 		} else if(type == "change") {
 			if(action == "changeGenre") {
-				_event.changeGenre(evo);
+				_event.changeGenre();
 			}
 		}
 	};
@@ -34,8 +35,8 @@ const home = (function() {
 	// 이벤트 실행
 	let _event = {
 		// 장르 드롭다운 변경
-		changeGenre: function(e) {
-			let genre_idx = e.val();
+		changeGenre: function() {
+			_settingContent();
 		}
 	}
 	
@@ -49,12 +50,63 @@ const home = (function() {
 			let list = resp.body.list;
 			
 			let ul_o = $("#genreList").empty();
-			ul_o.append($("<option>").attr("selected", true).html("전체"));
+			ul_o.append($("<option>").attr({
+				"selected": true,
+				"value": "all"
+			}).html("전체"));
 			for(let genre of list) {
 				let option_o = $("<option>").addClass("dropdown-item").attr({
-					"value": genre.idx_code,
+					"value": genre.code,
 				}).html(genre.description);
 				ul_o.append(option_o);
+			}
+		});
+	}
+	
+	// 콘텐츠 세팅
+	function _settingContent() {
+		let url_v = "/content/list";
+		
+		let data_v = {
+			genre: $("#genreList option:selected").val(),
+			limit: 15
+		}
+
+		comm.send(url_v, data_v, "POST", function(resp) {
+			let list = resp.body.list;
+			let total = resp.body.total;
+
+			let list_o = $("#contentList").empty();
+		
+			for(let content_list of list) {
+				let line_o = $("<div>").addClass("card-list");
+				list_o.append(line_o);
+				
+				for(let content of content_list) {
+					let card_o = $("<div>").addClass("card");
+					line_o.append(card_o);
+
+					{
+						let img_o = $("<img>").addClass("card-img-top").attr({
+							"src": content.thumbnail
+						});
+						card_o.append(img_o);
+					}
+					{
+						let div_o = $("<div>").addClass("card-body");
+						let span_o = $("<span>").html(content.title);
+						div_o.append(span_o);
+						card_o.append(div_o);
+					}
+				}
+			}
+			
+			// 콘텐츠 개수
+			let cnt = $(".card").length;
+			if(total == cnt) {
+				$("#moreView").hide();
+			} else {
+				$("#moreView").show();
 			}
 		});
 	}
