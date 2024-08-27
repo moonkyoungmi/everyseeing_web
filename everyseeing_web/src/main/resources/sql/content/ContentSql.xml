@@ -15,20 +15,20 @@
 		ORDER BY idx
 	</select>
 	
-	<!-- 영화 콘텐츠 리스트 -->
-	<select id="getMovieContentList" parameterType="HashMap">
+	<!-- 콘텐츠 리스트 -->
+	<select id="getContentList" parameterType="HashMap">
 		SELECT
 			  c.idx AS idx_content
 			, c.title
 			, c.summary
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.rating)
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.category)
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre1)
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre2)
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre3)
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword1)
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword2)
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword3)
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.rating) AS rating
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.category) AS category
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre1) AS genre1
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre2) AS genre2
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre3) AS genre3
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword1) AS keyword1
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword2) AS keyword2
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword3) AS keyword3
 			, c.director 
 			, c.thumbnail 
 			, c.thumbnail_filename 
@@ -36,17 +36,26 @@
 			, c.end_date 
 		FROM
 			CONTENT c
-		WHERE
-			c.category = 'MOVIE'
-		<if test="genre != null and genre != 'all'">
-		AND (
-				c.genre1 = #{genre}
-			OR
-				c.genre2 = #{genre}
-			OR
-				c.genre3 = #{genre}
-		)
-		</if>
+		<where>
+			<if test='menu != null and menu == "M"'>
+			AND c.category = 'MOVIE'
+			</if>
+			<if test='menu != null and menu == "T"'>
+			AND c.category = 'TV'
+			</if>
+			<if test='menu != null and menu == "N"'>
+			AND c.broadcast_date BETWEEN  date_add(now(), interval -1 year) AND now()
+			</if>
+			<if test="genre != null and genre != 'all'">
+			AND (
+					c.genre1 = #{genre}
+				OR
+					c.genre2 = #{genre}
+				OR
+					c.genre3 = #{genre}
+			)
+			</if>
+		</where>
 		ORDER BY c.idx DESC
 		<if test="limit != null and limit !=''">
 		LIMIT ${limit}
@@ -54,22 +63,90 @@
 	</select>
 	
 	<!-- 콘텐츠 개수 -->
-	<select id="getMovieContentCnt" parameterType="HashMap">
+	<select id="getContentCnt" parameterType="HashMap">
 		SELECT
 			  COUNT(*) 
 		FROM
 			CONTENT c
-		WHERE
-			c.category = 'MOVIE'
-		<if test="genre != null and genre!= ''">
-		AND (
-				c.genre1 = #{genre}
-			OR
-				c.genre2 = #{genre}
-			OR
-				c.genre3 = #{genre}
-		)
+		<where>
+			<if test='menu != null and menu == "M"'>
+			AND c.category = 'MOVIE'
+			</if>
+			<if test='menu != null and menu == "T"'>
+			AND c.category = 'TV'
+			</if>
+			<if test='menu != null and menu == "N"'>
+			AND c.broadcast_date BETWEEN  date_add(now(), interval -1 year) AND now()
+			</if>
+			<if test="genre != null and genre != 'all'">
+			AND (
+					c.genre1 = #{genre}
+				OR
+					c.genre2 = #{genre}
+				OR
+					c.genre3 = #{genre}
+			)
+			</if>
+		</where>
+	</select>
+	
+	<!-- 찜한 콘텐츠 리스트 -->
+	<select id="getBookmarkContentList" parameterType="HashMap">
+		SELECT
+			  c.idx AS idx_content
+			, c.title
+			, c.summary
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.rating) AS rating
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.category) AS category
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre1) AS genre1
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre2) AS genre2
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre3) AS genre3
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword1) AS keyword1
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword2) AS keyword2
+			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword3) AS keyword3
+			, c.director 
+			, c.thumbnail 
+			, c.thumbnail_filename 
+			, c.broadcast_date 
+			, c.end_date 
+		FROM
+			CONTENT c
+		JOIN 
+			MEMBER_CONTENT mc 
+		ON mc.idx_content = c.idx
+		WHERE 
+				mc.idx_profile = #{idx_profile}
+		ORDER BY mc.idx DESC
+		<if test="limit != null and limit !=''">
+		LIMIT ${limit}
 		</if>
 	</select>
 	
+	<!-- 찜한 콘텐츠 개수 -->
+	<select id="getBookmarkContentCnt" parameterType="HashMap">
+		SELECT
+			  COUNT(*) 
+		FROM
+			CONTENT c
+		JOIN 
+			MEMBER_CONTENT mc 
+		ON mc.idx_content = c.idx
+		WHERE 
+				mc.idx_profile = #{idx_profile}
+	</select>
+	
+	<!-- TV 콘텐츠 회차 리스트 -->
+	<select id="getContentRoundList" parameterType="HashMap">
+		SELECT
+			  cr.idx AS idx_content_round
+			, cr.idx_content
+			, cr.number
+			, cr.sub_title
+			, cr.summary
+		FROM
+			CONTENT_ROUND cr
+		WHERE
+			idx_content = #{idx_content}
+		ORDER BY idx
+	</select>
 </mapper>
