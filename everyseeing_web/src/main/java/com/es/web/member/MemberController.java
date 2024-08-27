@@ -140,4 +140,17 @@ public class MemberController {
 		
 		return memberService.findPw(param);
 	}
+	
+	/**
+	 * 비밀번호 변경
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/modify/pw")
+	public Map<String, Object> modifyPw(RequestMap reqMap) throws Exception {
+		Map<String, Object> param = reqMap.getMap();
+		
+		return memberService.modifyPw(param);
+	}
 }

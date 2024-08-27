@@ -306,4 +306,33 @@ public class MemberService {
 		
 		return respMap.getResponseMap();
 	}
+	
+	/**
+	 * 비밀번호 변경
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> modifyPw(Map<String, Object> param) throws Exception {
+		ResponseMap respMap = new ResponseMap();
+		
+		// 비밀번호 일치 확인
+		Map<String, Object> memberInfo = memberMapper.getMemberInfo(param);
+		String pw = (String) memberInfo.get("password");
+		String inputPw = (String) param.get("password");
+		
+		if(!pw.equals(SHAUtil.encrypt(inputPw))) {
+			return respMap.getResponseMap(Code.MEMBER_PW_ERROR);
+		}
+		
+		// 새 비밀번호 암호화
+		String password = (String) param.get("new_password");
+		String encPassword = SHAUtil.encrypt(password);
+		memberInfo.put("new_pw", encPassword);
+		memberInfo.put("temp_yn", "N");
+		
+		memberMapper.modifyMember(memberInfo);
+		
+		return respMap.getResponseMap();
+	}
 }

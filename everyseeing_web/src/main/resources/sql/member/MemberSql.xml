@@ -142,6 +142,7 @@
 		SELECT
 			  idx AS idx_member
 			, email
+			, password
 		FROM
 			MEMBER
 		WHERE 
