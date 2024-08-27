@@ -34,6 +34,8 @@ const header = (function() {
 				_event.clickSetting();
 			} else if(action == "clickLogout") {
 				_event.clickLogout();
+			} else if(action == "clickMenu") {
+				_event.clickMenu(evo);
 			}
 		} else if(type == "change") {
 			if(action == "changeFile") {
@@ -45,6 +47,7 @@ const header = (function() {
 	// 이벤트 실행
 	let _event = {
 		clickLogo: function() {
+			sessionStorage.removeItem("menu");
 			location.href = "/";
 		},
 		
@@ -110,6 +113,13 @@ const header = (function() {
 		    	$("#imgPreview").attr("src", e.target.result);
 		    };
 		    reader.readAsDataURL(file);
+		},
+		
+		// 메뉴 클릭
+		clickMenu: function(evo) {
+			let menu = evo.attr("data-menu");
+			sessionStorage.setItem("menu", menu);
+			location.reload();
 		}
 	};
 	

@@ -65,10 +65,19 @@ const home = (function() {
 	
 	// 콘텐츠 세팅
 	function _settingContent() {
+		let menu = sessionStorage.getItem("menu");
+		
+		if(menu == "B") {
+			$("#genreList").hide();
+		} else {
+			$("#genreList").show();
+		}
+		
 		let url_v = "/content/list";
 		
 		let data_v = {
 			genre: $("#genreList option:selected").val(),
+			menu: menu,
 			limit: 15
 		}
 
