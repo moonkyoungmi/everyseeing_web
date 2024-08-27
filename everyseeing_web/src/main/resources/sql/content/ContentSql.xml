@@ -57,8 +57,8 @@
 			</if>
 		</where>
 		ORDER BY c.idx DESC
-		<if test="limit != null and limit !=''">
-		LIMIT ${limit}
+		<if test="limit != null and offset !=null">
+		LIMIT ${limit} OFFSET ${offset}
 		</if>
 	</select>
 	
@@ -117,8 +117,8 @@
 		WHERE 
 				mc.idx_profile = #{idx_profile}
 		ORDER BY mc.idx DESC
-		<if test="limit != null and limit !=''">
-		LIMIT ${limit}
+		<if test="limit != null and offset !=null">
+		LIMIT ${limit} OFFSET ${offset}
 		</if>
 	</select>
 	
