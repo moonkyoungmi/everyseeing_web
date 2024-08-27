@@ -2,7 +2,7 @@ const home = (function() {
 	
 	function init() {
 		_settingGenre();
-		_settingContent();
+		_settingContent(0);
 		_eventInit();
 	};
 	
@@ -23,7 +23,8 @@ const home = (function() {
 		let type = e.type;
 		
 		if(type == "click") {
-			if(action == "") {
+			if(action == "clickMoreView") {
+				_event.clickMoreView();
 			}
 		} else if(type == "change") {
 			if(action == "changeGenre") {
@@ -36,8 +37,14 @@ const home = (function() {
 	let _event = {
 		// 장르 드롭다운 변경
 		changeGenre: function() {
-			_settingContent();
-		}
+			_settingContent(0);
+		},
+		
+		// 더보기 클릭
+		clickMoreView: function() {
+			let cnt = $(".card").length;
+			_settingContent(cnt);
+		},
 	}
 	
 	// 장르 드롭다운 세팅
@@ -64,7 +71,7 @@ const home = (function() {
 	}
 	
 	// 콘텐츠 세팅
-	function _settingContent() {
+	function _settingContent(offset) {
 		let menu = sessionStorage.getItem("menu");
 		
 		if(menu == "B") {
@@ -78,14 +85,18 @@ const home = (function() {
 		let data_v = {
 			genre: $("#genreList option:selected").val(),
 			menu: menu,
-			limit: 15
+			limit: 15,
+			offset: offset
 		}
 
 		comm.send(url_v, data_v, "POST", function(resp) {
 			let list = resp.body.list;
 			let total = resp.body.total;
 
-			let list_o = $("#contentList").empty();
+			let list_o = $("#contentList");
+			if(offset == 0) {
+				list_o.empty();
+			}
 		
 			for(let content_list of list) {
 				let line_o = $("<div>").addClass("card-list");
