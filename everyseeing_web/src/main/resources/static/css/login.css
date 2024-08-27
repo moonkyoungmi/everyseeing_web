@@ -219,6 +219,15 @@ span {
 	background-color: #19192D;
 }
 
+.btn-send {
+	width: 130px;
+	background-color: #22223B;
+}
+
+.btn-send:hover {
+	background-color: #19192D;
+}
+
 .profile-input {
 	color: black;
 }
@@ -271,4 +280,13 @@ span {
 
 .img-file {
 	display: none;
+}
+
+.findpw-notice {
+	text-align: left;
+	margin-bottom: 15px;
+}
+
+.findpw-notice > h6 {
+	color: #22223B;
 }

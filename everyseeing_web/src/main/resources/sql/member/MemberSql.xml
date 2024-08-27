@@ -136,4 +136,31 @@
 		AND
 			idx = #{idx_profile}
 	</select>
+	
+	<!-- 회원 정보 -->
+	<select id="getMemberInfo" parameterType="HashMap">
+		SELECT
+			  idx AS idx_member
+			, email
+		FROM
+			MEMBER
+		WHERE 
+			email = #{email}
+	</select>
+	
+	<!-- 회원 비밀번호 수정 -->
+	<update id="modifyMember" parameterType="HashMap">
+		UPDATE MEMBER
+		SET
+			  temp_yn = #{temp_yn}
+			, update_date = now()
+			<if test='temp_yn != null and temp_yn == "Y"'>
+			, password = #{temp_pw}
+			</if>
+			<if test='temp_yn != null and temp_yn == "N"'>
+			, password = #{new_pw}
+			</if>
+		WHERE
+			idx = #{idx_member}
+	</update>
 </mapper>

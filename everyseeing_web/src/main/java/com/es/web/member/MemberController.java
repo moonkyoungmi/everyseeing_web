@@ -127,4 +127,17 @@ public class MemberController {
 		
 		return memberService.getProfileInfo(param);
  	}
+	
+	/**
+	 * 비밀번호 찾기
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/find/pw")
+	public Map<String, Object> findPw(RequestMap reqMap) throws Exception {
+		Map<String, Object> param = reqMap.getMap();
+		
+		return memberService.findPw(param);
+	}
 }
