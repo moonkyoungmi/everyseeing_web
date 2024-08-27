@@ -41,4 +41,9 @@ public interface MemberMapper {
 	// 프로필 정보
 	public Map<String, Object> getProfileInfo(Map<String, Object> param);
 	
+	// 회원 정보
+	public Map<String, Object> getMemberInfo(Map<String, Object> param);
+	
+	// 회원 정보 수정
+	public int modifyMember(Map<String, Object> param);
 }

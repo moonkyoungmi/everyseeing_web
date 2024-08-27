@@ -95,6 +95,7 @@ const header = (function() {
 			let data_v = {};
 			
 			comm.send(url_v, data_v, "GET", function() {
+				sessionStorage.clear();
 				location.href = "/login";
 			});
 		},

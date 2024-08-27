@@ -27,6 +27,31 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 비밀번호 찾기 모달 -->
+		<div class="modal fade" id="findPwModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+		        		<h5 class="modal-title">비밀번호 찾기</h5>
+		        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      		</div>
+			    	<div class="modal-body">
+			    		<div class="findpw-notice">
+			    			<h6>* 회원가입 시의 이메일을 입력해 주세요.</h6>
+			    		</div>
+			    		<div class="form-floating">
+			    			<input type="text" class="form-control profile-input" id="findPwEmail" placeholder="이메일">
+			    			<label for="findPwEmail">이메일</label>
+			    		</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-cancel" data-bs-dismiss="modal">취소</button>
+					    <button type="button" class="btn btn-send" data-src="login" data-act="clickSendPw">비밀번호 발송</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</th:block>
 	<th:block layout:fragment="script">
 		<script th:src="@{/js/page/login.js}"></script>

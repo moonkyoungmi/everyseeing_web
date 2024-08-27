@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.es.web.email.MailData;
 import com.es.web.email.MailService;
+import com.es.web.email.template.FindPwTemplate;
 import com.es.web.email.template.JoinAuthTemplate;
 import com.es.web.s3.S3Service;
 import com.es.web.util.CommonUtil;
@@ -263,6 +264,45 @@ public class MemberService {
 		
 		Map<String, Object> data = memberMapper.getProfileInfo(param);
 		respMap.setBody("data", data);
+		
+		return respMap.getResponseMap();
+	}
+	
+	/**
+	 * 비밀번호 찾기
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> findPw(Map<String, Object> param) throws Exception {
+		ResponseMap respMap = new ResponseMap();
+
+		// 회원 정보
+		Map<String, Object> memberInfo = memberMapper.getMemberInfo(param);
+
+		// 회원 유무 체크
+		if(memberInfo == null) {
+			return respMap.getResponseMap(Code.MEMBER_NOT_EXIST);
+		}
+		
+		// 임시 비밀번호
+		String tempPw = CommonUtil.makeRandStr(10);
+		memberInfo.put("temp_pw", tempPw);
+		memberInfo.put("temp_yn", "Y");
+		
+		// 메일 템플릿 설정
+		String email = (String) memberInfo.get("email");
+	 	FindPwTemplate template = new FindPwTemplate();
+	 	template.setEmail(email);
+	 	template.setTempPw(tempPw);
+ 		
+ 		// 메일 발송
+ 		MailData mailData = new MailData(email, template);
+ 		mailService.sendMail(mailData);
+		
+		// 임시 비밀번호 암호화 후 회원 정보 수정
+		memberInfo.put("temp_pw", SHAUtil.encrypt(tempPw));
+		memberMapper.modifyMember(memberInfo);
 		
 		return respMap.getResponseMap();
 	}
