@@ -145,8 +145,14 @@
 			, password
 		FROM
 			MEMBER
-		WHERE 
-			email = #{email}
+		<where>
+			<if test="email != null and email !=''">
+			AND email = #{email}
+			</if>
+			<if test="idx_member != null and idx_member !=''">
+			AND idx = #{idx_member}
+			</if>
+		</where>
 	</select>
 	
 	<!-- 회원 비밀번호 수정 -->

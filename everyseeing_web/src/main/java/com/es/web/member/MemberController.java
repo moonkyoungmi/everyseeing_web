@@ -153,4 +153,30 @@ public class MemberController {
 		
 		return memberService.modifyPw(param);
 	}
+	
+	/**
+	 * 회원 정보
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/info")
+	public Map<String, Object> getMemberInfo(RequestMap reqMap) throws Exception {
+		Map<String, Object> param = reqMap.getMap();
+		
+		return memberService.getMemberInfo(param);
+	}
+	
+	/**
+	 * 회원 탈퇴
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/leave")
+	public Map<String, Object> memberLeave(RequestMap reqMap) throws Exception {
+		Map<String, Object> param = reqMap.getMap();
+		
+		return memberService.memberLeave(param);
+	}
 }

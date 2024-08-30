@@ -85,7 +85,7 @@ const header = (function() {
 		
 		// 설정 클릭
 		clickSetting: function() {
-			
+			location.href = "/setting";
 		},
 		
 		// 로그아웃 클릭

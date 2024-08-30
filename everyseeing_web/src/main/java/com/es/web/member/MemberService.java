@@ -335,4 +335,37 @@ public class MemberService {
 		
 		return respMap.getResponseMap();
 	}
+	
+	/**
+	 * 회원 정보
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> getMemberInfo(Map<String, Object> param) throws Exception {
+		ResponseMap respMap = new ResponseMap();
+		
+		Map<String, Object> data = memberMapper.getMemberInfo(param);
+		respMap.setBody("data", data);
+		
+		return respMap.getResponseMap();
+	}
+	
+	/**
+	 * 회원 탈퇴
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> memberLeave(Map<String, Object> param) throws Exception {
+		ResponseMap respMap = new ResponseMap();
+		
+		// 찜한 콘텐츠 삭제
+		
+		// 프로필 삭제
+		
+		// 회원 삭제
+		
+		return respMap.getResponseMap();
+	}
 }
