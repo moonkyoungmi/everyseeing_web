@@ -305,7 +305,7 @@ nav {
 	max-height: 320px;
 }
 
-.card-body {
+.card-body > .row > .col-9 {
 	overflow: hidden;
   	white-space: nowrap;
   	text-overflow: ellipsis;
@@ -383,4 +383,13 @@ nav {
 .pw-notice {
 	display: none;
 	color: #ff7e7e;
+}
+
+.heart {
+	width: 30px;
+}
+
+.heart:hover {
+	cursor: pointer;
+	content: url("/assets/imgs/heart_fill.png")
 }
