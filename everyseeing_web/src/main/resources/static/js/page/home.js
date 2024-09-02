@@ -25,6 +25,8 @@ const home = (function() {
 		if(type == "click") {
 			if(action == "clickMoreView") {
 				_event.clickMoreView();
+			} else if(action == "clickBookmark") {
+				_event.clickBookmark(evo);
 			}
 		} else if(type == "change") {
 			if(action == "changeGenre") {
@@ -45,6 +47,26 @@ const home = (function() {
 			let cnt = $(".card").length;
 			_settingContent(cnt);
 		},
+		
+		// 찜 클릭
+		clickBookmark: function(e) {
+			let url_v = "/content/bookmark";
+			
+			let bookmark_yn = e.attr("data-yn");
+			
+			let data_v = {
+				"idx_content": e.closest(".card").attr("data-idx-content"),
+				"bookmark_yn": bookmark_yn
+			}
+			
+			comm.send(url_v, data_v, "POST", function() {
+				if(bookmark_yn == "Y") {
+					e.attr("src", "/assets/imgs/heart.png");
+				} else {
+					e.attr("src", "/assets/imgs/heart_fill.png");
+				}
+			});
+		}
 	}
 	
 	// 장르 드롭다운 세팅
@@ -103,7 +125,9 @@ const home = (function() {
 				list_o.append(line_o);
 				
 				for(let content of content_list) {
-					let card_o = $("<div>").addClass("card");
+					let card_o = $("<div>").addClass("card").attr({
+						"data-idx-content": content.idx_content
+					});
 					line_o.append(card_o);
 
 					{
@@ -114,9 +138,31 @@ const home = (function() {
 					}
 					{
 						let div_o = $("<div>").addClass("card-body");
-						let span_o = $("<span>").html(content.title);
-						div_o.append(span_o);
 						card_o.append(div_o);
+						
+						let row_o = $("<div>").addClass("row");
+						div_o.append(row_o);
+						
+						let col1_o = $("<div>").addClass("col-9");
+						row_o.append(col1_o);
+
+						let col2_o = $("<div>").addClass("col-3");
+						row_o.append(col2_o);
+
+						let span_o = $("<span>").html(content.title);
+						col1_o.append(span_o);
+						
+						let src_v = "/assets/imgs/heart.png";
+						if(content.bookmark_yn == "Y") {
+							src_v = "/assets/imgs/heart_fill.png";
+						}
+						let img_o = $("<img>").attr({
+							"src": src_v,
+							"data-src": "home",
+							"data-act": "clickBookmark",
+							"data-yn": content.bookmark_yn,
+						}).addClass("heart");
+						col2_o.append(img_o);
 					}
 				}
 			}
@@ -128,6 +174,8 @@ const home = (function() {
 			} else {
 				$("#moreView").show();
 			}
+			
+			_eventInit();
 		});
 	}
 	

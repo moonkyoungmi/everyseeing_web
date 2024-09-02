@@ -87,4 +87,24 @@ public class ContentService {
 		
 		return respMap.getResponseMap();
 	}
+	
+	/**
+	 * 북마크
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> bookmark(Map<String, Object> param) throws Exception {
+		ResponseMap respMap = new ResponseMap();
+
+		String bookmarkYn = (String) param.get("bookmark_yn");
+		
+		if(bookmarkYn.equals("Y")) {
+			contentMapper.deleteBookmarkContent(param);
+		} else {
+			contentMapper.bookmark(param);
+		}
+		
+		return respMap.getResponseMap();
+	}
 }

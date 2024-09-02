@@ -42,4 +42,16 @@ public class ContentController {
 		return contentService.getContentList(param);
 	}
 	
+	/**
+	 * 북마크
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/bookmark")
+	public Map<String, Object> bookmark(RequestMap reqMap) throws Exception {
+		Map<String, Object> param = reqMap.getMap();
+		
+		return contentService.bookmark(param);
+	}
 }

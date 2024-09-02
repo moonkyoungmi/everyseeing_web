@@ -34,6 +34,9 @@
 			, c.thumbnail_filename 
 			, c.broadcast_date 
 			, c.end_date 
+			<if test="idx_profile != null and idx_profile !=''">
+			, IF((SELECT idx FROM MEMBER_CONTENT WHERE c.idx = idx_content AND idx_profile = #{idx_profile}), "Y", "N") AS bookmark_yn
+			</if>
 		FROM
 			CONTENT c
 		<where>
@@ -109,6 +112,9 @@
 			, c.thumbnail_filename 
 			, c.broadcast_date 
 			, c.end_date 
+			<if test="idx_profile != null and idx_profile !=''">
+			, IF((SELECT idx FROM MEMBER_CONTENT WHERE c.idx = idx_content AND idx_profile = #{idx_profile}), "Y", "N") AS bookmark_yn
+			</if>
 		FROM
 			CONTENT c
 		JOIN 
@@ -150,11 +156,26 @@
 		ORDER BY idx
 	</select>
 	
-	<!-- 찜한 콘텐츠 삭제 -->
+	<!-- 북마크 콘텐츠 삭제 -->
 	<delete id="deleteBookmarkContent" parameterType="HashMap">
 		DELETE FROM
 			MEMBER_CONTENT
 		WHERE
 			idx_profile = #{idx_profile}
+		<if test="idx_content != null and idx_content != ''">
+			AND idx_content = #{idx_content}
+		</if>
 	</delete>
+	
+	<!-- 북마크 -->
+	<insert id="bookmark" parameterType="HashMap">
+		INSERT INTO
+			MEMBER_CONTENT (
+				  idx_content
+				, idx_profile
+			) VALUES (
+				  #{idx_content}
+				, #{idx_profile}
+			)
+	</insert>
 </mapper>
