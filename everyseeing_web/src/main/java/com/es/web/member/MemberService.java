@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.es.web.content.ContentMapper;
 import com.es.web.email.MailData;
 import com.es.web.email.MailService;
 import com.es.web.email.template.FindPwTemplate;
@@ -28,6 +29,9 @@ public class MemberService {
 
 	@Autowired
 	private MemberMapper memberMapper;
+
+	@Autowired
+	private ContentMapper contentMapper;
 	
 	@Autowired
 	private MailService mailService;
@@ -40,6 +44,9 @@ public class MemberService {
 
 	@Value("${s3.profile}")
 	private String S3_PROFILE;
+	
+	@Value("${login.token.name}")
+	private String TOKEN_NAME;
 	
 	/**
 	 * 회원가입
@@ -357,14 +364,26 @@ public class MemberService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> memberLeave(Map<String, Object> param) throws Exception {
+	public Map<String, Object> memberLeave(Map<String, Object> param, HttpServletRequest request) throws Exception {
 		ResponseMap respMap = new ResponseMap();
 		
-		// 찜한 콘텐츠 삭제
+		// 프로필 전체 리스트
+		List<Map<String, Object>> profileList = memberMapper.getProfileList(param);
 		
-		// 프로필 삭제
+		for(Map<String, Object> profile : profileList) {
+			// 찜한 콘텐츠 삭제
+			contentMapper.deleteBookmarkContent(profile);
+
+			// 프로필 삭제
+			memberMapper.deleteProfile(profile);
+		}
 		
 		// 회원 삭제
+		memberMapper.deleteMember(param);
+		
+		HttpSession session = request.getSession();
+		session.removeAttribute(TOKEN_NAME);
+		session.removeAttribute("login_profile");
 		
 		return respMap.getResponseMap();
 	}

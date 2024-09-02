@@ -25,4 +25,7 @@ public interface ContentMapper {
 	
 	// TV 콘텐츠 회차 리스트
 	public List<Map<String, Object>> getContentRoundList(Map<String, Object> param);
+	
+	// 찜한 콘텐츠 삭제
+	public int deleteBookmarkContent(Map<String, Object> param);
 }

@@ -174,9 +174,9 @@ public class MemberController {
 	 * @throws Exception
 	 */
 	@PostMapping("/leave")
-	public Map<String, Object> memberLeave(RequestMap reqMap) throws Exception {
+	public Map<String, Object> memberLeave(RequestMap reqMap, HttpServletRequest request) throws Exception {
 		Map<String, Object> param = reqMap.getMap();
 		
-		return memberService.memberLeave(param);
+		return memberService.memberLeave(param, request);
 	}
 }

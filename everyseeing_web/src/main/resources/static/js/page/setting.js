@@ -96,19 +96,24 @@ const setting = (function() {
 		
 		// 회원 탈퇴 클릭
 		clickLeave: function() {
-			let url_v = "/member/leave";
-			
-			let data_v = {};
-			
-			comm.send(url_v, data_v, "POST", function() {
-				modal.alert({
-					cotent: "회원 탈퇴가 완료되었습니다.<br>이용해 주셔서 감사합니다.",
-					successCallback: function() {
-						sessionStorage.clear();
-						location.href = "/login";
-					}
-				})
-			}); 
+			modal.confirm({
+				content: "회원탈퇴 시 프로필을 포함한 모든 계정 정보가 삭제됩니다.<br>정말 탈퇴하시겠습니까?",
+				confirmCallback: function() {
+					let url_v = "/member/leave";
+					
+					let data_v = {};
+					
+					comm.send(url_v, data_v, "POST", function() {
+						modal.alert({
+							content: "회원 탈퇴가 완료되었습니다.<br>이용해 주셔서 감사합니다.",
+							confirmCallback: function() {
+								sessionStorage.clear();
+								location.href = "/login";
+							}
+						})
+					}); 
+				}
+			});
 		},
 		
 		// 새 비밀번호 
