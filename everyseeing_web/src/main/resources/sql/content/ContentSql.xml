@@ -149,4 +149,12 @@
 			idx_content = #{idx_content}
 		ORDER BY idx
 	</select>
+	
+	<!-- 찜한 콘텐츠 삭제 -->
+	<delete id="deleteBookmarkContent" parameterType="HashMap">
+		DELETE FROM
+			MEMBER_CONTENT
+		WHERE
+			idx_profile = #{idx_profile}
+	</delete>
 </mapper>

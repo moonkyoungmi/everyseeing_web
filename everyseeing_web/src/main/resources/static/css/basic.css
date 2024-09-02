@@ -311,3 +311,76 @@ nav {
   	text-overflow: ellipsis;
   	word-break: break-all;
 }
+
+.info-wrapper {
+	width: 70%;
+	margin: auto;
+	margin-top: 50px;
+}
+
+.info-wrapper > p {
+	font-weight: bold;
+	font-size: 30px;
+}
+
+.info-field {
+	margin-top: 30px;
+	border: 1px solid #f2e9e4;
+	border-radius: 10px;
+	padding: 30px;
+}
+
+.info-field > p {
+	font-weight: bold;
+	font-size: 20px;
+	margin-bottom: 30px;
+}
+
+.info > .col-2 {
+	margin-bottom: 20px;
+}
+
+.info > .col-10 > .form-floating {
+	margin-bottom: 10px;
+	color: #22223b;
+}
+
+.pwBtn {
+	text-align: right;
+	margin-top: 20px;
+}
+
+.pwBtn > button {
+	background-color: #f2e9e4;
+	color: #22223b;
+}
+
+.pwBtn > button:hover {
+	border: 1px solid #f2e9e4;
+}
+
+.leave-field {
+	margin-top: 8px;
+	text-align: right;
+}
+
+.leave-field > a {
+	font-size: 12px;
+	opacity: 0.5;
+	color: #f2e9e4
+}
+
+.notice-filed {
+	text-align: left;
+	margin-top: -10px;
+	font-size: 14px;
+}
+
+.notice {
+	opacity: 0.5;
+}
+
+.pw-notice {
+	display: none;
+	color: #ff7e7e;
+}

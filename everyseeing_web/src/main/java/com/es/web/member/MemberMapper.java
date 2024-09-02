@@ -46,4 +46,10 @@ public interface MemberMapper {
 	
 	// 회원 정보 수정
 	public int modifyMember(Map<String, Object> param);
+	
+	// 프로필 삭제
+	public int deleteProfile(Map<String, Object> param);
+
+	// 회원 삭제
+	public int deleteMember(Map<String, Object> param);
 }

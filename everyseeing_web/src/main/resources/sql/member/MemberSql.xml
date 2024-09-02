@@ -32,6 +32,8 @@
 			EMAIL_AUTH
 		WHERE
 			email = #{email}
+		AND 
+			check_yn = 'N'
 	</select>
 	
 	<!-- 인증번호 체크 업데이트 -->
@@ -145,8 +147,14 @@
 			, password
 		FROM
 			MEMBER
-		WHERE 
-			email = #{email}
+		<where>
+			<if test="email != null and email !=''">
+			AND email = #{email}
+			</if>
+			<if test="idx_member != null and idx_member !=''">
+			AND idx = #{idx_member}
+			</if>
+		</where>
 	</select>
 	
 	<!-- 회원 비밀번호 수정 -->
@@ -164,4 +172,20 @@
 		WHERE
 			idx = #{idx_member}
 	</update>
+	
+	<!-- 프로필 삭제 -->
+	<delete id="deleteProfile" parameterType="HashMap">
+		DELETE FROM
+			MEMBER_PROFILE
+		WHERE
+			idx = #{idx_profile}
+	</delete>
+	
+	<!-- 회원 삭제 -->
+	<delete id="deleteMember" parameterType="HashMap">
+		DELETE FROM
+			MEMBER
+		WHERE
+			idx = #{idx_member}
+	</delete>
 </mapper>

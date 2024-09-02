@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<th:block layout:fragment="content">
+	<div class="container content">
+		<div class="info-wrapper">
+			<p>설정</p>
+			<div class="info-field">
+				<p>계정</p>
+				<div class="row info">
+					<div class="col-2">
+						<span>이메일</span>
+					</div>
+					<div class="col-10">
+						<span id="emailInfo"></span>
+					</div>
+				</div>
+				<div class="row info">
+					<div class="col-2">
+						<span>비밀번호 변경</span>
+					</div>
+					<div class="col-10">
+						<div class="form-floating">
+							<input type="password" class="form-control" id="checkPw" placeholder="현재 비밀번호 확인" data-src="setting" data-act="chnagePw">
+							<label for="checkPw">현재 비밀번호 확인</label>
+						</div>
+						<div class="form-floating">
+							<input type="password" class="form-control" id="newPw" placeholder="새 비밀번호" data-src="setting" data-act="changeNewPw">
+							<label for="newPw">새 비밀번호</label>
+						</div>
+						<div class="notice-filed">
+							<span class="notice">* 영문, 숫자, 특수문자를 사용하여 8~16자</span>
+							<span class="pw-notice" id="pwNotice">* 올바른 비밀번호를 입력해 주세요.</span>
+						</div>
+						<div class="form-floating">
+							<input type="password" class="form-control" id="checkNewPw" placeholder="새 비밀번호 확인" data-src="setting" data-act="checkNewPw">
+							<label for="checkNewPw">새 비밀번호 확인</label>
+						</div>
+						<div class="notice-filed">
+							<span class="pw-notice" id="pwChkNotice">* 비밀번호가 다릅니다.</span>
+						</div>
+						<div class="pwBtn">
+							<button type="button" class="btn" data-src="setting" data-act="clickChangePw">변경</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="leave-field">
+				<a href="javascript:;" data-src="setting" data-act="clickLeave">회원탈퇴하기</a>
+			</div>
+		</div>
+	</div>
+</th:block>
+<th:block layout:fragment="script">
+	<script th:src="@{/js/page/setting.js}"></script>
+	<script>
+		layout.setCallback(setting.init);
+	</script>
+</th:block>
+</html>

@@ -30,4 +30,10 @@ public class PageController {
 		return "page/profile";
 	}
 	
+	@GetMapping("/setting")
+	public String setting() {
+		
+		return "page/setting";
+	}
+	
 }

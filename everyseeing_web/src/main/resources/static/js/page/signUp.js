@@ -81,7 +81,7 @@ const signUp = (function() {
 			
 			let pw_yn = $("#pwNotice").attr("chk-pw");
 			let pw_chk_yn = $("#pwChkNotice").attr("chk-pw");
-			if(pw_yn != "1" && pw_chk_yn != "1") {
+			if(pw_yn != "1" || pw_chk_yn != "1") {
 				modal.alert({
 					content: "올바르지 않은 비밀번호입니다. 다시 확인해 주세요."
 				});

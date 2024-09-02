@@ -50,6 +50,7 @@ const profile = (function() {
 			}
 			
 			comm.send(url_v, data_v, "POST", function() {
+				sessionStorage.removeItem("menu");
 				location.href = "/";
 			});
 		},

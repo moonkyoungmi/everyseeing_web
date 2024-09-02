@@ -36,6 +36,8 @@ const header = (function() {
 				_event.clickLogout();
 			} else if(action == "clickMenu") {
 				_event.clickMenu(evo);
+			} else if(action == "clickChangeProfile") {
+				_event.clickChangeProfile();
 			}
 		} else if(type == "change") {
 			if(action == "changeFile") {
@@ -85,7 +87,7 @@ const header = (function() {
 		
 		// 설정 클릭
 		clickSetting: function() {
-			
+			location.href = "/setting";
 		},
 		
 		// 로그아웃 클릭
@@ -121,7 +123,12 @@ const header = (function() {
 			let menu = evo.attr("data-menu");
 			sessionStorage.setItem("menu", menu);
 			location.reload();
-		}
+		},
+		
+		// 프로필 변경 클릭
+		clickChangeProfile: function() {
+			location.href = "/profile";
+		},
 	};
 	
 	function _profileSetting() {
@@ -133,6 +140,9 @@ const header = (function() {
 			
 			comm.send(url_v, data_v, "POST", function(resp) {
 				let data = resp.body.data;
+				if(data.profile_file == null) {
+					data.profile_file = "/assets/imgs/basic_profile.png";	
+				}
 				$("#profileImg").attr("src", data.profile_file);
 				$("#imgPreview").attr("src", data.profile_file); // 프로필 수정 미리보기 사진
 				$("#modifyNickname").val(data.nickname);
