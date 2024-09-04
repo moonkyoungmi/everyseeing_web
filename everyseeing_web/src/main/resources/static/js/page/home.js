@@ -27,6 +27,8 @@ const home = (function() {
 				_event.clickMoreView();
 			} else if(action == "clickBookmark") {
 				_event.clickBookmark(evo);
+			} else if(action == "clickContent") {
+				_event.clickContent(evo);
 			}
 		} else if(type == "change") {
 			if(action == "changeGenre") {
@@ -66,6 +68,37 @@ const home = (function() {
 					e.attr("src", "/assets/imgs/heart_fill.png");
 				}
 			});
+		},
+		
+		// 콘텐츠 카드 클릭
+		clickContent: function(e) {
+			let idx_content = e.attr("data-idx-content");
+			
+			let url_v = "/content/detail";
+			
+			let data_v = {
+				"idx_content": idx_content
+			}
+			
+			comm.send(url_v, data_v, "POST", function(resp) {
+				let code = resp.body.code;
+				
+				if(code == 2000) {
+					modal.alert({
+						content: "존재하지 않는 콘텐츠입니다."
+					}); 
+					return;
+				} else {
+					let data = resp.body.data;
+					_event.showContentModal(data);
+				}
+			});
+		},
+		
+		// 콘텐츠 상세 모달
+		showContentModal: function(data) {
+			console.log(data);
+			$("#contentModal").modal("show");
 		}
 	}
 	
@@ -120,12 +153,22 @@ const home = (function() {
 				list_o.empty();
 			}
 		
+			if(total <= 0) {
+				let div_o = $("<div>").addClass("content-empty");
+				list_o.append(div_o);
+				
+				let p_o	= $("<p>").html("결과가 존재하지 않습니다.");
+				div_o.append(p_o);
+			}
+		
 			for(let content_list of list) {
 				let line_o = $("<div>").addClass("card-list");
 				list_o.append(line_o);
 				
 				for(let content of content_list) {
 					let card_o = $("<div>").addClass("card").attr({
+						"data-src": "home",
+						"data-act": "clickContent",
 						"data-idx-content": content.idx_content
 					});
 					line_o.append(card_o);

@@ -18,22 +18,7 @@
 	<!-- 콘텐츠 리스트 -->
 	<select id="getContentList" parameterType="HashMap">
 		SELECT
-			  c.idx AS idx_content
-			, c.title
-			, c.summary
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.rating) AS rating
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.category) AS category
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre1) AS genre1
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre2) AS genre2
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre3) AS genre3
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword1) AS keyword1
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword2) AS keyword2
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword3) AS keyword3
-			, c.director 
-			, c.thumbnail 
-			, c.thumbnail_filename 
-			, c.broadcast_date 
-			, c.end_date 
+			<include refid="select_content"></include>
 			<if test="idx_profile != null and idx_profile !=''">
 			, IF((SELECT idx FROM MEMBER_CONTENT WHERE c.idx = idx_content AND idx_profile = #{idx_profile}), "Y", "N") AS bookmark_yn
 			</if>
@@ -96,22 +81,7 @@
 	<!-- 찜한 콘텐츠 리스트 -->
 	<select id="getBookmarkContentList" parameterType="HashMap">
 		SELECT
-			  c.idx AS idx_content
-			, c.title
-			, c.summary
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.rating) AS rating
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.category) AS category
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre1) AS genre1
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre2) AS genre2
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre3) AS genre3
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword1) AS keyword1
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword2) AS keyword2
-			, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword3) AS keyword3
-			, c.director 
-			, c.thumbnail 
-			, c.thumbnail_filename 
-			, c.broadcast_date 
-			, c.end_date 
+			<include refid="select_content"></include>
 			<if test="idx_profile != null and idx_profile !=''">
 			, IF((SELECT idx FROM MEMBER_CONTENT WHERE c.idx = idx_content AND idx_profile = #{idx_profile}), "Y", "N") AS bookmark_yn
 			</if>
@@ -178,4 +148,33 @@
 				, #{idx_profile}
 			)
 	</insert>
+	
+	<!-- 콘텐츠 상세 -->
+	<select id="getDetail" parameterType="HashMap">
+		SELECT
+			<include refid="select_content"></include>
+		FROM
+			CONTENT c
+		WHERE
+			idx = #{idx_content}
+	</select>
+	
+	<sql id="select_content">
+		  c.idx AS idx_content
+		, c.title
+		, c.summary
+		, (SELECT cd.description FROM CODE cd WHERE cd.code = c.rating) AS rating
+		, (SELECT cd.description FROM CODE cd WHERE cd.code = c.category) AS category
+		, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre1) AS genre1
+		, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre2) AS genre2
+		, (SELECT cd.description FROM CODE cd WHERE cd.code = c.genre3) AS genre3
+		, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword1) AS keyword1
+		, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword2) AS keyword2
+		, (SELECT cd.description FROM CODE cd WHERE cd.code = c.keyword3) AS keyword3
+		, c.director 
+		, c.thumbnail 
+		, c.thumbnail_filename 
+		, c.broadcast_date 
+		, c.end_date 
+	</sql>
 </mapper>

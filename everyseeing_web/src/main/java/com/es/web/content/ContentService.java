@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.es.web.vo.Code;
 import com.es.web.vo.ResponseMap;
 
 @Service
@@ -104,6 +105,33 @@ public class ContentService {
 		} else {
 			contentMapper.bookmark(param);
 		}
+		
+		return respMap.getResponseMap();
+	}
+	
+	/**
+	 * 콘텐츠 상세
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> getDetail(Map<String, Object> param) throws Exception {
+		ResponseMap respMap = new ResponseMap();
+		
+		Map<String, Object> data = contentMapper.getDetail(param);
+	
+		if(data == null) {
+			respMap.getResponseMap(Code.CONTENT_NOT_EXIST);
+		}
+		
+		// TV 콘텐츠 회차 리스트 put
+		String category = (String) data.get("category");
+		if(category.equals("TV")) {
+			List<Map<String, Object>> roundList = contentMapper.getContentRoundList(param);
+			data.put("round_lst", roundList);
+		}
+		
+		respMap.setBody("data", data);
 		
 		return respMap.getResponseMap();
 	}

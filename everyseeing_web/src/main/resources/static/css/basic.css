@@ -393,3 +393,12 @@ nav {
 	cursor: pointer;
 	content: url("/assets/imgs/heart_fill.png")
 }
+
+.content-empty {
+	margin-top: 300px;
+	text-align: center;
+}
+
+.card:hover {
+	cursor: pointer;
+}
