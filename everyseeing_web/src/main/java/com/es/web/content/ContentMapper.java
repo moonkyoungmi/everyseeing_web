@@ -31,4 +31,7 @@ public interface ContentMapper {
 
 	// 북마크
 	public int bookmark(Map<String, Object> param);
+	
+	// 콘텐츠 상세
+	public Map<String, Object> getDetail(Map<String, Object> param);
 }

@@ -15,6 +15,8 @@ public enum Code {
 	MEMBER_LOGIN_FAIL(1003, "member login fail"),
 	MEMBER_PROFILE_IS_FULL(1004, "member profile is fulll"),
 	MEMBER_PW_ERROR(1005, "member pw error"),
+
+	CONTENT_NOT_EXIST(2000, "content not exist"),
 	;
 	
 	public final int code;

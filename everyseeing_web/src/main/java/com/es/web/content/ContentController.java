@@ -54,4 +54,17 @@ public class ContentController {
 		
 		return contentService.bookmark(param);
 	}
+	
+	/**
+	 * 콘텐츠 상세
+	 * @param reqMap
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/detail")
+	public Map<String, Object> getDetail(RequestMap reqMap) throws Exception {
+		Map<String, Object> param = reqMap.getMap();
+		
+		return contentService.getDetail(param);
+	}
 }
