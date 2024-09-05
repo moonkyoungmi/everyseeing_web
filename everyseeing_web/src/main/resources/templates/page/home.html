@@ -60,13 +60,27 @@
 	</div>
 	
 	<!-- 컨텐츠 상세 모달 -->
-	<div class="modal fade" id="contentModal" data-bs-keyboard="false" tabindex="-1">
+	<div class="modal fade modal-lg" id="contentModal" data-bs-keyboard="false" tabindex="-1">
 		<div class="modal-dialog modal-dialog-centered">
 	    	<div class="modal-content">
-	      		<div class="modal-header">
+	      		<div class="modal-content-header">
+	      			<img src="" id="contentImg" class="content-modal-img">
 	        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	        		<div class="content-title">
+	        			<p id="contentTitle"></p>
+	        		</div>
 	      		</div>
-		    	<div class="modal-body">
+		    	<div class="modal-body content-modal-body">
+		    		<div class="row content-desc">
+		    			<div class="col-8">
+		    				<p><img class="rating-icon" id="ratingIcon"><span id="contentRating"></span></p>
+      						<p id="contentSum"></p>
+	      				</div>
+	      				<div class="col-4">
+	      					<p>장르: <span id="contentGenre"></span></p>
+	      					<p>키워드: <span id="contentKeyword"></span></p>
+	      				</div>
+	      			</div>
 				</div>
 			</div>
 		</div>

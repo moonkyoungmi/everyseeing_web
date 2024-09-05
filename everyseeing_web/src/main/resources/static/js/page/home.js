@@ -97,7 +97,46 @@ const home = (function() {
 		
 		// 콘텐츠 상세 모달
 		showContentModal: function(data) {
-			console.log(data);
+			$("#contentImg").attr("src", data.thumbnail);
+			$("#contentTitle").html(data.title);
+			$("#contentSum").html(data.summary);
+			
+			// 등급
+			let rating = data.rating;
+			let icon = "";
+			if(rating == "전체관람가") {
+				icon = "/assets/imgs/rating_all.png";
+			} else if(rating == "12세관람가") {
+				icon = "/assets/imgs/rating_12.png";
+			} else if(rating == "15세관람가") {
+				icon = "/assets/imgs/rating_15.png";
+			} else if(rating == "청소년관람불가") {
+				icon = "/assets/imgs/rating_18.png";
+			}
+			$("#ratingIcon").attr("src", icon);
+			$("#contentRating").html(rating);
+			
+			let genre_text = data.genre1;
+			if(data.genre2 != null) {
+				genre_text += ", ";
+				genre_text += data.genre2;
+			}
+			if(data.genre3 != null) {
+				genre_text += ", ";
+				genre_text += data.genre3;
+			}
+			$("#contentGenre").html(genre_text);
+			
+			let keyword_text = data.keyword1;
+			if(data.keyword2 != null) {
+				keyword_text += ", ";
+				keyword_text += data.keyword2;
+			}
+			if(data.keyword3 != null) {
+				keyword_text += ", ";
+				keyword_text += data.keyword3;
+			}
+			$("#contentKeyword").html(keyword_text);
 			$("#contentModal").modal("show");
 		}
 	}

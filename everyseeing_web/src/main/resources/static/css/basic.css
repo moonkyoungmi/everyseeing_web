@@ -402,3 +402,53 @@ nav {
 .card:hover {
 	cursor: pointer;
 }
+
+.modal-content-header {
+	background-color: #22223b;
+	position: relative;
+	height: 400px;	
+	overflow: hidden;
+}
+
+.modal-content-header > button {
+	width: 30px;
+	height: 30px;
+	background-color: white;
+	float: right;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	border-radius: 50%;
+}
+
+.content-modal-img {
+	opacity: 0.5;
+	position: absolute;
+	inset: -50px -100px auto auto;
+	min-width: 1000px;
+	max-width: 1000px;
+	min-height: 1000px;
+	max-height: 1000px;
+}
+
+.content-title {
+	position: absolute;
+    top: 300px;
+    left: 30px;
+}
+
+.content-title > p {
+	font-size: 40px;
+	font-weight: bold;
+	color: white;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.content-desc {
+	margin-top: 20px;
+}
+
+.rating-icon {
+	width: 20px;
+	margin-right: 5px;
+}
