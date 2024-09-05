@@ -43,6 +43,13 @@
 					c.genre3 = #{genre}
 			)
 			</if>
+			<if test="search_text != null and search_text != ''">
+			AND (
+				c.title LIKE CONCAT('%', #{search_text}, '%')
+				OR
+				c.director LIKE CONCAT('%', #{search_text}, '%')
+			)
+			</if>
 		</where>
 		ORDER BY c.idx DESC
 		<if test="limit != null and offset !=null">
@@ -73,6 +80,13 @@
 					c.genre2 = #{genre}
 				OR
 					c.genre3 = #{genre}
+			)
+			</if>
+			<if test="search_text != null and search_text != ''">
+			AND (
+				c.title LIKE CONCAT('%', #{search_text}, '%')
+				OR
+				c.director LIKE CONCAT('%', #{search_text}, '%')
 			)
 			</if>
 		</where>

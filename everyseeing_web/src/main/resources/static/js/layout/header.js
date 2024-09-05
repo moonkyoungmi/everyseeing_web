@@ -8,7 +8,7 @@ const header = (function() {
 	// 이벤트 초기화 
 	function _eventInit() {
 		let evo = $("[data-src='header'][data-act]").off();
-		evo.on("click change", function(e) {
+		evo.on("click change keyup", function(e) {
 			_eventAction(e);
 		});
 	};
@@ -38,10 +38,18 @@ const header = (function() {
 				_event.clickMenu(evo);
 			} else if(action == "clickChangeProfile") {
 				_event.clickChangeProfile();
+			} else if(action == "clickContentSearch") {
+				_event.contentSearch();
 			}
 		} else if(type == "change") {
 			if(action == "changeFile") {
 				_event.changeFile(evo);
+			}
+		} else if(type == "keyup") {
+			if(action == "contentSearch") {
+				if(e.keyCode == 13) {
+					_event.contentSearch();
+				}
 			}
 		}
 	};
@@ -129,6 +137,90 @@ const header = (function() {
 		clickChangeProfile: function() {
 			location.href = "/profile";
 		},
+		
+		// 검색
+		contentSearch: function() {
+			let url_v = "/content/list";
+			
+			let data_v = {
+				"search_text": $("#searchInput").val()
+			}
+			
+			comm.send(url_v, data_v, "POST", function(resp) {
+				let total = resp.body.total;
+				let list = resp.body.list;
+				
+				let list_o = $("#contentList");
+				list_o.empty();
+				
+				if(total <= 0) {
+					let div_o = $("<div>").addClass("content-empty");
+					list_o.append(div_o);
+					
+					let p_o	= $("<p>").html("결과가 존재하지 않습니다.");
+					div_o.append(p_o);
+				}
+				
+				for(let content_list of list) {
+					let line_o = $("<div>").addClass("card-list");
+					list_o.append(line_o);
+					
+					for(let content of content_list) {
+						let card_o = $("<div>").addClass("card").attr({
+							"data-src": "home",
+							"data-act": "clickContent",
+							"data-idx-content": content.idx_content
+						});
+						line_o.append(card_o);
+	
+						{
+							let img_o = $("<img>").addClass("card-img-top").attr({
+								"src": content.thumbnail
+							});
+							card_o.append(img_o);
+						}
+						{
+							let div_o = $("<div>").addClass("card-body");
+							card_o.append(div_o);
+							
+							let row_o = $("<div>").addClass("row");
+							div_o.append(row_o);
+							
+							let col1_o = $("<div>").addClass("col-9");
+							row_o.append(col1_o);
+	
+							let col2_o = $("<div>").addClass("col-3");
+							row_o.append(col2_o);
+	
+							let span_o = $("<span>").html(content.title);
+							col1_o.append(span_o);
+							
+							let src_v = "/assets/imgs/heart.png";
+							if(content.bookmark_yn == "Y") {
+								src_v = "/assets/imgs/heart_fill.png";
+							}
+							let img_o = $("<img>").attr({
+								"src": src_v,
+								"data-src": "home",
+								"data-act": "clickBookmark",
+								"data-yn": content.bookmark_yn,
+							}).addClass("heart");
+							col2_o.append(img_o);
+						}
+					}
+				}
+				
+				// 콘텐츠 개수
+				let cnt = $(".card").length;
+				if(total == cnt) {
+					$("#moreView").hide();
+				} else {
+					$("#moreView").show();
+				}
+				
+				_eventInit();
+			});
+		}
 	};
 	
 	function _profileSetting() {
