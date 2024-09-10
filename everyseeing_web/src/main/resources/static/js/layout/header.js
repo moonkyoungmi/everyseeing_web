@@ -130,7 +130,7 @@ const header = (function() {
 		clickMenu: function(evo) {
 			let menu = evo.attr("data-menu");
 			sessionStorage.setItem("menu", menu);
-			location.reload();
+			location.href = "/";
 		},
 		
 		// 프로필 변경 클릭
